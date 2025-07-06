@@ -9,7 +9,7 @@ Porque necesitaba repasar los verbos para un examen XD
 - Basta que elijas que el más se te acomode/guste
 - En el juego se te preguntará por verbos en infinitivo, pasado, pasado participio y castellano
   
-## Modo por consola
+## Modo por consola (Python)
 
 En este modo basta con ejecutar el archivo desde tu consola el archivo ``juego.py`` y comenzar a jugar
    

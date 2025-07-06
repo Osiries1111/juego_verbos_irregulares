@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Juego de Verbos Irregulares</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+    }
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Juego de Verbos Irregulares</h1>
+  <div id="juego">
+    <p id="pregunta"></p>
+    <input type="text" id="respuesta" placeholder="Tu respuesta aquí" />
+    <br />
+    <button onclick="verificar()">Verificar</button>
+    <div id="resultado"></div>
+  </div>
+  <div id="final" style="display: none;">
+    <h2 id="mensaje-final"></h2>
+    <button onclick="reiniciar()">Jugar otra vez</button>
+  </div>
+
+  <script>
+    let verbos = [];
+    let indice = 0;
+    let puntaje = 0;
+    const totalPartidas = 10;
+    let preguntas = [];
+
+    fetch("verbos.json")
+      .then(res => res.json())
+      .then(data => {
+        verbos = data;
+        generarPreguntas();
+        mostrarPregunta();
+      });
+
+    function generarPreguntas() {
+      for (let i = 0; i < totalPartidas; i++) {
+        const fila = Math.floor(Math.random() * (verbos.length - 1)) + 1;
+        let col1 = Math.floor(Math.random() * 4);
+        let col2;
+        do {
+          col2 = Math.floor(Math.random() * 4);
+        } while (col1 === col2);
+        preguntas.push({ fila, col1, col2 });
+      }
+    }
+
+    function mostrarPregunta() {
+      const { fila, col1, col2 } = preguntas[indice];
+      const pregunta = `${verbos[0][col1]}: ${verbos[fila][col1]} → ${verbos[0][col2]}: `;
+      document.getElementById("pregunta").textContent = pregunta;
+      document.getElementById("respuesta").value = "";
+      document.getElementById("resultado").textContent = "";
+    }
+
+    function verificar() {
+      const resp = document.getElementById("respuesta").value.trim().toLowerCase();
+      const { fila, col2 } = preguntas[indice];
+      const correcta = verbos[fila][col2].toLowerCase();
+
+      if (resp === correcta) {
+        puntaje++;
+        document.getElementById("resultado").textContent = "✅ ¡Correcto!";
+      } else {
+        document.getElementById("resultado").textContent =
+          `❌ Incorrecto. La respuesta correcta era: ${verbos[fila][col2]}`;
+      }
+
+      indice++;
+      if (indice < totalPartidas) {
+        setTimeout(mostrarPregunta, 1500);
+      } else {
+        setTimeout(mostrarFinal, 1500);
+      }
+    }
+
+    function mostrarFinal() {
+      document.getElementById("juego").style.display = "none";
+      document.getElementById("final").style.display = "block";
+      const mensaje = puntaje === totalPartidas
+        ? "¡Ganaste! ¡Sos un pro! 🏆"
+        : `Obtuviste ${puntaje} de ${totalPartidas}. ¡Sigue practicando!`;
+      document.getElementById("mensaje-final").textContent = mensaje;
+    }
+
+    function reiniciar() {
+      indice = 0;
+      puntaje = 0;
+      preguntas = [];
+      document.getElementById("juego").style.display = "block";
+      document.getElementById("final").style.display = "none";
+      generarPreguntas();
+      mostrarPregunta();
+    }
+
+        // Escuchar Enter en el campo de respuesta
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("respuesta");
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          verificar();
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>

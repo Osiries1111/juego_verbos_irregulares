@@ -11,7 +11,7 @@ Porque necesitaba repasar los verbos para un examen XD
   
 ## Modo por consola
 
-En este modo basta con ejecutar el archivo desde tu consola de ``juego.py`` y comenzar a jugar
+En este modo basta con ejecutar el archivo desde tu consola el archivo ``juego.py`` y comenzar a jugar
    
 En ubuntu
 ```

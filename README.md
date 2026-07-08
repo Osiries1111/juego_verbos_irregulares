@@ -8,7 +8,8 @@ Porque necesitaba repasar los verbos para un examen XD
 - Son 2 modos de juego para aprender/repasar los verbos irregulares
 - Basta que elijas que el más se te acomode/guste
 - En el juego se te preguntará por verbos en infinitivo, pasado, pasado participio y castellano
-  
+
+## Pruebalo en la WEB [LINK](https://osiries1111.github.io/juego_verbos_irregulares/)  
 ## Modo por consola (Python)
 
 En este modo basta con ejecutar el archivo desde tu consola el archivo ``juego.py`` y comenzar a jugar

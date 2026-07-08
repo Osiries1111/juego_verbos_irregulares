@@ -13,7 +13,7 @@ const estado = {
   modo: "quiz", // "quiz" | "fila"
 
   // configuración elegida por el usuario
-  columnasQuizSeleccionadas: new Set([0, 1, 2, 3]), // qué columnas practicar escribiendo (modo quiz)
+  columnasQuizSeleccionadas: new Set(), // qué columnas practicar escribiendo (modo quiz) — arranca vacío
   columnaFilaConocida: 0,                            // qué columna ya se muestra dada (modo fila)
   cantidadElegida: 10,
   totalPartidas: 10, // número de verbos/filas a practicar (no de campos individuales)
@@ -38,6 +38,7 @@ const dom = {
   bloqueColumnaFila: document.getElementById("bloqueColumnaFila"),
   opcionesColumnasQuiz: document.querySelectorAll("#opcionesColumnasQuiz .opcion-columna"),
   opcionesColumnaFila: document.querySelectorAll("#opcionesColumnaFila .opcion-columna"),
+  avisoColumnasQuiz: document.getElementById("avisoColumnasQuiz"),
 
   opcionesCantidad: document.querySelectorAll(".opcion-cantidad"),
   cantidadPersonalizada: document.getElementById("cantidadPersonalizada"),
@@ -99,15 +100,11 @@ function inicializarSelectorModo() {
    CONFIGURACIÓN: COLUMNAS (quiz = multi-select, fila = single-select)
    ========================================================= */
 function inicializarSelectorColumnas() {
-  // Quiz: multi-select, no se puede dejar todo deseleccionado
+  // Quiz: multi-select libre. Arranca vacío; se valida al presionar "Comenzar".
   dom.opcionesColumnasQuiz.forEach(btn => {
     btn.addEventListener("click", () => {
       const col = parseInt(btn.dataset.col, 10);
       const yaSeleccionada = estado.columnasQuizSeleccionadas.has(col);
-
-      if (yaSeleccionada && estado.columnasQuizSeleccionadas.size === 1) {
-        return; // no permitir dejar la lista vacía
-      }
 
       if (yaSeleccionada) {
         estado.columnasQuizSeleccionadas.delete(col);
@@ -115,6 +112,10 @@ function inicializarSelectorColumnas() {
       } else {
         estado.columnasQuizSeleccionadas.add(col);
         btn.classList.add("seleccionada");
+      }
+
+      if (estado.columnasQuizSeleccionadas.size > 0) {
+        dom.avisoColumnasQuiz.classList.remove("mostrar");
       }
     });
   });
@@ -155,6 +156,11 @@ function inicializarSelectorCantidad() {
    INICIO DEL JUEGO
    ========================================================= */
 function comenzarJuego() {
+  if (estado.modo === "quiz" && estado.columnasQuizSeleccionadas.size === 0) {
+    dom.avisoColumnasQuiz.classList.add("mostrar");
+    return;
+  }
+
   const personalizada = parseInt(dom.cantidadPersonalizada.value, 10);
   estado.totalPartidas = personalizada > 0 ? personalizada : estado.cantidadElegida;
 

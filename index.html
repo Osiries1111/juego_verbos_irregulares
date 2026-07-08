@@ -48,7 +48,6 @@
       overflow-x: hidden;
     }
 
-    /* nubecitas / estrellitas flotantes decorativas */
     .deco {
       position: fixed;
       font-size: 28px;
@@ -107,7 +106,82 @@
       font-weight: 600;
     }
 
-    /* barra de progreso con corazoncitos */
+    #config { text-align: center; }
+
+    .campo-config { margin: 22px 0 6px; }
+    .campo-config label {
+      display: block;
+      font-weight: 700;
+      font-family: 'Baloo 2', sans-serif;
+      color: var(--plum);
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .opciones-cantidad {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .opcion-cantidad {
+      border: 2.5px solid var(--pink-2);
+      background: #fff;
+      color: var(--plum);
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .opcion-cantidad:hover {
+      border-color: var(--blue-3);
+      transform: translateY(-2px);
+    }
+    .opcion-cantidad.seleccionada {
+      background: linear-gradient(135deg, var(--pink-3), var(--blue-3));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 6px 14px -4px rgba(255, 143, 177, 0.55);
+    }
+
+    .cantidad-personalizada {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .cantidad-personalizada input {
+      width: 80px;
+      padding: 10px;
+      text-align: center;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2.5px solid var(--lav-2);
+      border-radius: 999px;
+      outline: none;
+      color: var(--plum);
+    }
+    .cantidad-personalizada input:focus {
+      border-color: var(--blue-3);
+      box-shadow: 0 0 0 4px var(--blue-1);
+    }
+    .cantidad-personalizada span {
+      font-size: 0.85rem;
+      color: var(--plum-soft);
+      font-weight: 600;
+    }
+
     #progreso {
       display: flex;
       justify-content: center;
@@ -215,20 +289,69 @@
     #resultado.correcto { background: var(--ok-green-bg); color: #2f9e63; }
     #resultado.incorrecto { background: var(--err-red-bg); color: #e05656; }
 
-    #final {
-      text-align: center;
-    }
+    #final { text-align: center; }
     #final h2 {
       font-family: 'Baloo 2', sans-serif;
       font-size: 1.4rem;
       color: var(--plum);
-      margin: 10px 0 22px;
+      margin: 10px 0 4px;
     }
-    #final::before {
-      content: "🎉";
+    #final .emoji-final {
       display: block;
       font-size: 2.6rem;
       margin-bottom: 6px;
+    }
+
+    .resumen { margin-top: 22px; text-align: left; }
+    .resumen h3 {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1rem;
+      margin: 0 0 10px;
+      text-align: center;
+      color: var(--plum-soft);
+    }
+    .lista-resumen {
+      list-style: none;
+      margin: 0 0 18px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .lista-resumen::-webkit-scrollbar { width: 6px; }
+    .lista-resumen::-webkit-scrollbar-thumb {
+      background: var(--pink-2);
+      border-radius: 999px;
+    }
+    .item-resumen {
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .item-resumen.ok {
+      background: var(--ok-green-bg);
+      color: #2f9e63;
+      border-left: 4px solid var(--ok-green);
+    }
+    .item-resumen.mal {
+      background: var(--err-red-bg);
+      color: #c94848;
+      border-left: 4px solid var(--err-red);
+    }
+    .item-resumen .pregunta-texto {
+      display: block;
+      color: var(--plum);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .item-resumen .detalle-respuesta {
+      display: block;
+      font-weight: 600;
     }
 
     @media (max-width: 480px) {
@@ -251,7 +374,24 @@
     <h1>Juego de Verbos Irregulares</h1>
     <p class="subtitulo">¡Completa la forma correcta del verbo! 🐰</p>
 
-    <div id="juego">
+    <div id="config">
+      <div class="campo-config">
+        <label>¿Cuántas preguntas quieres practicar?</label>
+        <div class="opciones-cantidad" id="opcionesCantidad">
+          <button type="button" class="opcion-cantidad" data-valor="5">5</button>
+          <button type="button" class="opcion-cantidad seleccionada" data-valor="10">10</button>
+          <button type="button" class="opcion-cantidad" data-valor="15">15</button>
+          <button type="button" class="opcion-cantidad" data-valor="20">20</button>
+        </div>
+        <div class="cantidad-personalizada">
+          <span>u otra cantidad:</span>
+          <input type="number" id="cantidadPersonalizada" min="1" max="50" placeholder="Ej: 8" />
+        </div>
+      </div>
+      <button id="btnComenzar" onclick="comenzarJuego()">Comenzar 🌟</button>
+    </div>
+
+    <div id="juego" style="display: none;">
       <div id="progreso"></div>
       <p id="pregunta"></p>
       <input type="text" id="respuesta" placeholder="Tu respuesta aquí" autocomplete="off" />
@@ -260,7 +400,16 @@
     </div>
 
     <div id="final" style="display: none;">
+      <span class="emoji-final">🎉</span>
       <h2 id="mensaje-final"></h2>
+
+      <div class="resumen">
+        <h3>✅ Respuestas correctas</h3>
+        <ul class="lista-resumen" id="listaCorrectas"></ul>
+        <h3>❌ Respuestas incorrectas</h3>
+        <ul class="lista-resumen" id="listaIncorrectas"></ul>
+      </div>
+
       <button onclick="reiniciar()">Jugar otra vez 🔄</button>
     </div>
   </div>
@@ -269,16 +418,57 @@
     let verbos = [];
     let indice = 0;
     let puntaje = 0;
-    const totalPartidas = 10;
+    let totalPartidas = 10;
     let preguntas = [];
+    let historial = []; // { textoPregunta, tuRespuesta, respuestaCorrecta, acierto }
+    let cantidadElegida = 10;
 
     fetch("verbos.json")
       .then(res => res.json())
       .then(data => {
         verbos = data;
-        generarPreguntas();
-        mostrarPregunta();
       });
+
+    // ---- selección de cantidad de preguntas ----
+    document.querySelectorAll(".opcion-cantidad").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".opcion-cantidad").forEach(b => b.classList.remove("seleccionada"));
+        btn.classList.add("seleccionada");
+        cantidadElegida = parseInt(btn.dataset.valor, 10);
+        document.getElementById("cantidadPersonalizada").value = "";
+      });
+    });
+
+    document.getElementById("cantidadPersonalizada").addEventListener("input", (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (val > 0) {
+        document.querySelectorAll(".opcion-cantidad").forEach(b => b.classList.remove("seleccionada"));
+        cantidadElegida = val;
+      }
+    });
+
+    function comenzarJuego() {
+      const personalizada = parseInt(document.getElementById("cantidadPersonalizada").value, 10);
+      totalPartidas = personalizada > 0 ? personalizada : cantidadElegida;
+
+      if (!verbos.length) {
+        // por si el fetch aún no termina, esperamos un poquito
+        setTimeout(comenzarJuego, 200);
+        return;
+      }
+
+      indice = 0;
+      puntaje = 0;
+      preguntas = [];
+      historial = [];
+
+      document.getElementById("config").style.display = "none";
+      document.getElementById("final").style.display = "none";
+      document.getElementById("juego").style.display = "block";
+
+      generarPreguntas();
+      mostrarPregunta();
+    }
 
     function generarPreguntas() {
       for (let i = 0; i < totalPartidas; i++) {
@@ -316,11 +506,20 @@
 
     function verificar() {
       const resp = document.getElementById("respuesta").value.trim().toLowerCase();
-      const { fila, col2 } = preguntas[indice];
+      const { fila, col1, col2 } = preguntas[indice];
       const correcta = verbos[fila][col2].toLowerCase();
       const resultado = document.getElementById("resultado");
+      const acierto = resp === correcta;
 
-      if (resp === correcta) {
+      const textoPregunta = `${verbos[0][col1]}: ${verbos[fila][col1]} → ${verbos[0][col2]}`;
+      historial.push({
+        textoPregunta,
+        tuRespuesta: document.getElementById("respuesta").value.trim() || "(en blanco)",
+        respuestaCorrecta: verbos[fila][col2],
+        acierto
+      });
+
+      if (acierto) {
         puntaje++;
         resultado.textContent = "✅ ¡Correcto!";
         resultado.className = "correcto";
@@ -345,16 +544,36 @@
         ? "¡Ganaste! ¡Sos un pro! 🏆"
         : `Obtuviste ${puntaje} de ${totalPartidas}. ¡Sigue practicando!`;
       document.getElementById("mensaje-final").textContent = mensaje;
+
+      const listaCorrectas = document.getElementById("listaCorrectas");
+      const listaIncorrectas = document.getElementById("listaIncorrectas");
+      listaCorrectas.innerHTML = "";
+      listaIncorrectas.innerHTML = "";
+
+      historial.forEach(item => {
+        const li = document.createElement("li");
+        if (item.acierto) {
+          li.className = "item-resumen ok";
+          li.innerHTML = `<span class="pregunta-texto">${item.textoPregunta}</span><span class="detalle-respuesta">Tu respuesta: ${item.tuRespuesta}</span>`;
+          listaCorrectas.appendChild(li);
+        } else {
+          li.className = "item-resumen mal";
+          li.innerHTML = `<span class="pregunta-texto">${item.textoPregunta}</span><span class="detalle-respuesta">Escribiste: ${item.tuRespuesta} · Correcta: ${item.respuestaCorrecta}</span>`;
+          listaIncorrectas.appendChild(li);
+        }
+      });
+
+      if (!listaCorrectas.children.length) {
+        listaCorrectas.innerHTML = `<li class="item-resumen mal" style="text-align:center;">Ninguna esta vez, ¡la próxima será! 🌱</li>`;
+      }
+      if (!listaIncorrectas.children.length) {
+        listaIncorrectas.innerHTML = `<li class="item-resumen ok" style="text-align:center;">¡Ninguna! Todo perfecto ✨</li>`;
+      }
     }
 
     function reiniciar() {
-      indice = 0;
-      puntaje = 0;
-      preguntas = [];
-      document.getElementById("juego").style.display = "block";
       document.getElementById("final").style.display = "none";
-      generarPreguntas();
-      mostrarPregunta();
+      document.getElementById("config").style.display = "block";
     }
 
     // Escuchar Enter en el campo de respuesta

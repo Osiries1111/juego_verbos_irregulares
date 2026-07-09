@@ -52,6 +52,7 @@
   overflow: hidden;
   background: linear-gradient(180deg, var(--blue-1) 0%, var(--lav-1) 55%, #c9ecc6 55%, #a9dba3 100%);
   border: 3px solid var(--pink-2);
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 .meta-arcade {
   position: absolute;
@@ -173,10 +174,29 @@
   margin: 10px 0 6px;
 }
 
-/* ---- modo oscuro ---- */
+/* ---- modo oscuro ----
+   La pista se oscurece, pero el conejito se aclara para que resalte
+   bien contra ella (en vez de mezclarse con tonos igual de oscuros). */
 body.tema-oscuro .pista-arcade {
-  background: linear-gradient(180deg, var(--blue-1) 0%, var(--lav-1) 55%, #16321c 55%, #0e2313 100%);
+  background: linear-gradient(180deg, var(--blue-1) 0%, var(--lav-1) 55%, #2c5138 55%, #23422d 100%);
+  border-color: var(--pink-3);
 }
+
+body.tema-oscuro .personaje-arcade .cuerpo { fill: #ffd1e3; }
+body.tema-oscuro .personaje-arcade .cabeza,
+body.tema-oscuro .personaje-arcade .oreja { fill: #fff0f7; }
+body.tema-oscuro .personaje-arcade .ojo { fill: #3a2c4f; }
+
 body.tema-oscuro #arcadeRespuesta { background: #2c2340; }
 body.tema-oscuro #arcadeResultado.bonus { background: #3a2f10; color: #ffd36e; }
 body.tema-oscuro .arcade-pregunta.bonus { color: #3a2a00; }
+
+/* El conejito mantiene siempre su paleta de modo claro, sin importar el
+   tema — colores fijos en vez de var(), para que no cambie con --pink-*. */
+body.tema-oscuro .personaje-arcade .cuerpo { fill: #ffb6d0; }
+body.tema-oscuro .personaje-arcade .pata { fill: #ff8fb1; }
+body.tema-oscuro .personaje-arcade .cabeza { fill: #ffe3ef; }
+body.tema-oscuro .personaje-arcade .oreja { fill: #ffe3ef; }
+body.tema-oscuro .personaje-arcade .oreja-int { fill: #ff8fb1; }
+body.tema-oscuro .personaje-arcade .ojo { fill: #5b4b6a; }
+body.tema-oscuro .personaje-arcade .nariz { fill: #ff8fb1; }

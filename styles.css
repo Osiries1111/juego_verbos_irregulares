@@ -18,6 +18,38 @@
 
 * { box-sizing: border-box; }
 
+/* ---- barra superior flotante (github + tema) ---- */
+.barra-superior {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+.btn-flotante {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2.5px solid var(--pink-2);
+  background: var(--cream);
+  color: var(--plum);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 6px 14px -4px rgba(255, 143, 177, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  margin: 0;
+  padding: 0;
+}
+.btn-flotante:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--blue-3);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -585,6 +617,59 @@ button:focus-visible {
   .tabla-estudio { font-size: 0.72rem; }
   .tabla-estudio thead th, .tabla-estudio tbody td { padding: 7px 4px; }
 }
+
+/* ========================================================================
+   MODO OSCURO — redefine las mismas variables, todo lo demás se hereda solo
+   ======================================================================== */
+body.tema-oscuro {
+  --pink-1: #402437;
+  --pink-2: #6e3a58;
+  --pink-3: #ff8fb1;
+  --blue-1: #1f2b45;
+  --blue-2: #33456e;
+  --blue-3: #8ec5fc;
+  --lav-1: #291f3f;
+  --lav-2: #4a3a68;
+  --plum: #f4e9ff;
+  --plum-soft: #b8a6d6;
+  --cream: #211930;
+  --ok-green: #6fcf97;
+  --ok-green-bg: #1e3a2a;
+  --err-red: #ff8a8a;
+  --err-red-bg: #3d1f24;
+
+  background:
+    radial-gradient(circle at 12% 15%, var(--pink-1) 0%, transparent 45%),
+    radial-gradient(circle at 88% 12%, var(--blue-1) 0%, transparent 45%),
+    radial-gradient(circle at 20% 90%, var(--lav-1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, var(--pink-1) 0%, transparent 50%),
+    linear-gradient(160deg, #1a1526 0%, #141c2c 100%);
+}
+
+body.tema-oscuro .tarjeta {
+  border-color: #3a2c4f;
+  box-shadow:
+    0 20px 45px -12px rgba(0, 0, 0, 0.5),
+    0 8px 20px -6px rgba(0, 0, 0, 0.35);
+}
+
+body.tema-oscuro #respuesta,
+body.tema-oscuro .campo-fila-item input,
+body.tema-oscuro .cantidad-personalizada input,
+body.tema-oscuro .buscador-estudio,
+body.tema-oscuro .opcion-modo,
+body.tema-oscuro .opcion-columna,
+body.tema-oscuro .opcion-cantidad {
+  background: #2c2340;
+}
+
+body.tema-oscuro .btn-flotante {
+  background: var(--cream);
+  color: var(--plum);
+}
+
+body.tema-oscuro .tabla-estudio tbody tr:nth-child(odd) { background: #241c38; }
+body.tema-oscuro .tabla-estudio tbody tr:nth-child(even) { background: var(--blue-1); }
 
 /* En pantallas de escritorio hay más alto disponible: usamos un scroll
    interno más generoso en vez de dejar crecer toda la página. */

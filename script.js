@@ -31,6 +31,7 @@ const estado = {
    ========================================================= */
 const dom = {
   tarjeta: document.querySelector(".tarjeta"),
+  btnTema: document.getElementById("btnTema"),
   config: document.getElementById("config"),
   final: document.getElementById("final"),
 
@@ -159,6 +160,34 @@ function inicializarSelectorCantidad() {
       dom.opcionesCantidad.forEach(b => b.classList.remove("seleccionada"));
       estado.cantidadElegida = val;
     }
+  });
+}
+
+/* =========================================================
+   TEMA OSCURO / CLARO (persistido en localStorage)
+   ========================================================= */
+function aplicarTema(oscuro) {
+  document.body.classList.toggle("tema-oscuro", oscuro);
+  dom.btnTema.textContent = oscuro ? "☀️" : "🌙";
+  dom.btnTema.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  try {
+    localStorage.setItem("verbosTemaOscuro", oscuro ? "1" : "0");
+  } catch (e) {
+    // localStorage puede fallar si se abre como file:// sin servidor; no es grave.
+  }
+}
+
+function inicializarTema() {
+  let guardado = false;
+  try {
+    guardado = localStorage.getItem("verbosTemaOscuro") === "1";
+  } catch (e) {
+    guardado = false;
+  }
+  aplicarTema(guardado);
+
+  dom.btnTema.addEventListener("click", () => {
+    aplicarTema(!document.body.classList.contains("tema-oscuro"));
   });
 }
 
@@ -508,6 +537,7 @@ function inicializarEventos() {
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   cargarVerbos();
+  inicializarTema();
   ajustarAnchoTarjeta("config");
   inicializarSelectorModo();
   inicializarSelectorColumnas();

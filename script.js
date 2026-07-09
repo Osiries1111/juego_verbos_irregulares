@@ -17,6 +17,8 @@ const estado = {
   columnaFilaConocida: 0,                            // qué columna ya se muestra dada (modo fila)
   cantidadElegida: 10,
   totalPartidas: 10, // número de verbos/filas a practicar (no de campos individuales)
+  dificultadArcade: "medio",
+  vidasArcade: 3,
 
   // progreso de la partida
   indice: 0,
@@ -42,10 +44,16 @@ const dom = {
   opcionesColumnaFila: document.querySelectorAll("#opcionesColumnaFila .opcion-columna"),
   avisoColumnasQuiz: document.getElementById("avisoColumnasQuiz"),
 
-  opcionesCantidad: document.querySelectorAll(".opcion-cantidad"),
+  opcionesCantidad: document.querySelectorAll("#opcionesCantidad .opcion-cantidad"),
   bloqueCantidad: document.getElementById("bloqueCantidad"),
   cantidadPersonalizada: document.getElementById("cantidadPersonalizada"),
   btnComenzar: document.getElementById("btnComenzar"),
+
+  // modo arcade (configuración; la pantalla de juego vive en arcade.js)
+  bloqueArcadeOpciones: document.getElementById("bloqueArcadeOpciones"),
+  opcionesDificultad: document.querySelectorAll("#opcionesDificultad .opcion-columna"),
+  opcionesVidas: document.querySelectorAll("#opcionesVidas .opcion-cantidad"),
+  arcade: document.getElementById("arcade"),
 
   // modo estudiar
   estudio: document.getElementById("estudio"),
@@ -101,8 +109,34 @@ function inicializarSelectorModo() {
 
       dom.bloqueColumnasQuiz.style.display = estado.modo === "quiz" ? "block" : "none";
       dom.bloqueColumnaFila.style.display = estado.modo === "fila" ? "block" : "none";
-      dom.bloqueCantidad.style.display = estado.modo === "estudio" ? "none" : "block";
-      dom.btnComenzar.textContent = estado.modo === "estudio" ? "Ver lista de verbos 📖" : "Comenzar 🌟";
+      dom.bloqueArcadeOpciones.style.display = estado.modo === "arcade" ? "block" : "none";
+      dom.bloqueCantidad.style.display = (estado.modo === "estudio" || estado.modo === "arcade") ? "none" : "block";
+
+      let textoBoton = "Comenzar 🌟";
+      if (estado.modo === "estudio") textoBoton = "Ver lista de verbos 📖";
+      if (estado.modo === "arcade") textoBoton = "¡Empezar carrera! 🏁";
+      dom.btnComenzar.textContent = textoBoton;
+    });
+  });
+}
+
+/* =========================================================
+   CONFIGURACIÓN: MODO ARCADE (dificultad y vidas)
+   ========================================================= */
+function inicializarSelectorArcade() {
+  dom.opcionesDificultad.forEach(btn => {
+    btn.addEventListener("click", () => {
+      dom.opcionesDificultad.forEach(b => b.classList.remove("seleccionada"));
+      btn.classList.add("seleccionada");
+      estado.dificultadArcade = btn.dataset.dificultad;
+    });
+  });
+
+  dom.opcionesVidas.forEach(btn => {
+    btn.addEventListener("click", () => {
+      dom.opcionesVidas.forEach(b => b.classList.remove("seleccionada"));
+      btn.classList.add("seleccionada");
+      estado.vidasArcade = parseInt(btn.dataset.valor, 10);
     });
   });
 }
@@ -196,7 +230,7 @@ function inicializarTema() {
    ========================================================= */
 function ajustarAnchoTarjeta(pantalla) {
   dom.tarjeta.classList.toggle("tarjeta-ancha", pantalla === "config");
-  dom.tarjeta.classList.toggle("tarjeta-estudio", pantalla === "estudio");
+  dom.tarjeta.classList.toggle("tarjeta-estudio", pantalla === "estudio" || pantalla === "arcade");
 }
 
 /* =========================================================
@@ -228,6 +262,7 @@ function comenzarJuego() {
   dom.juegoQuiz.style.display = "none";
   dom.juegoFila.style.display = "none";
   dom.estudio.style.display = "none";
+  dom.arcade.style.display = "none";
 
   if (estado.modo === "estudio") {
     dom.estudio.style.display = "block";
@@ -235,6 +270,18 @@ function comenzarJuego() {
     mostrarEstudio();
     return;
   }
+
+  if (estado.modo === "arcade") {
+    dom.arcade.style.display = "block";
+    ajustarAnchoTarjeta("arcade");
+    window.IniciarArcade({
+      verbos: estado.verbos,
+      dificultad: estado.dificultadArcade,
+      vidasMax: estado.vidasArcade
+    });
+    return;
+  }
+
   ajustarAnchoTarjeta("juego");
 
   if (estado.modo === "fila") {
@@ -504,6 +551,7 @@ function renderizarResumen() {
 function reiniciar() {
   dom.final.style.display = "none";
   dom.estudio.style.display = "none";
+  dom.arcade.style.display = "none";
   ajustarAnchoTarjeta("config");
   dom.config.style.display = "block";
 }
@@ -514,6 +562,9 @@ function reiniciar() {
 function inicializarEventos() {
   dom.btnComenzar.addEventListener("click", comenzarJuego);
   dom.btnReiniciar.addEventListener("click", reiniciar);
+
+  // modo arcade: el módulo arcade.js avisa por evento cuando quiere volver al menú
+  document.addEventListener("arcadeVolverAlMenu", reiniciar);
 
   // modo estudiar
   dom.btnVolverEstudio.addEventListener("click", reiniciar);
@@ -542,5 +593,6 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarSelectorModo();
   inicializarSelectorColumnas();
   inicializarSelectorCantidad();
+  inicializarSelectorArcade();
   inicializarEventos();
 });

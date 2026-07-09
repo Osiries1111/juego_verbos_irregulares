@@ -656,11 +656,39 @@ body.tema-oscuro .tarjeta {
 body.tema-oscuro #respuesta,
 body.tema-oscuro .campo-fila-item input,
 body.tema-oscuro .cantidad-personalizada input,
-body.tema-oscuro .buscador-estudio,
+body.tema-oscuro .buscador-estudio {
+  background: #2c2340;
+}
+
+/* Botones seleccionables (modo, columnas, cantidad, dificultad, vidas):
+   más contraste contra el fondo de la tarjeta + un anillo claro cuando
+   están seleccionados, para que el cambio de estado se note de verdad. */
 body.tema-oscuro .opcion-modo,
 body.tema-oscuro .opcion-columna,
 body.tema-oscuro .opcion-cantidad {
-  background: #2c2340;
+  background: #372c4f;
+  border-color: #8a5fa0;
+  color: var(--plum);
+}
+body.tema-oscuro .opcion-modo:hover,
+body.tema-oscuro .opcion-columna:hover,
+body.tema-oscuro .opcion-cantidad:hover {
+  border-color: var(--blue-3);
+  background: #423460;
+}
+body.tema-oscuro .opcion-modo.seleccionada,
+body.tema-oscuro .opcion-columna.seleccionada,
+body.tema-oscuro .opcion-cantidad.seleccionada {
+  box-shadow:
+    0 0 0 2px #1a1526,
+    0 0 0 4px var(--pink-3),
+    0 6px 18px -4px rgba(255, 143, 177, 0.65);
+}
+body.tema-oscuro .opcion-modo.seleccionada {
+  box-shadow:
+    0 0 0 2px #1a1526,
+    0 0 0 4px var(--blue-3),
+    0 6px 18px -4px rgba(142, 197, 252, 0.65);
 }
 
 body.tema-oscuro .btn-flotante {

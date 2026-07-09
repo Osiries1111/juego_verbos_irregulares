@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="arcade.css" />
 </head>
 <body>
 
@@ -46,6 +47,7 @@
           <button type="button" class="opcion-modo seleccionada" data-modo="quiz">🎯 Quiz rápido</button>
           <button type="button" class="opcion-modo" data-modo="fila">📝 Completar fila</button>
           <button type="button" class="opcion-modo" data-modo="estudio">📖 Estudiar</button>
+          <button type="button" class="opcion-modo" data-modo="arcade">🏃 Modo Arcade</button>
         </div>
       </div>
 
@@ -72,6 +74,26 @@
           <button type="button" class="opcion-columna" data-col="3">Castellano</button>
         </div>
         <span class="ayuda-config">Se te mostrará esa columna y completarás las otras 3</span>
+      </div>
+
+      <!-- Modo Arcade: dificultad y vidas -->
+      <div class="campo-config" id="bloqueArcadeOpciones" style="display:none;">
+        <label>Dificultad</label>
+        <div class="opciones-columnas" id="opcionesDificultad">
+          <button type="button" class="opcion-columna" data-dificultad="facil">🟢 Fácil</button>
+          <button type="button" class="opcion-columna seleccionada" data-dificultad="medio">🟡 Medio</button>
+          <button type="button" class="opcion-columna" data-dificultad="dificil">🔴 Difícil</button>
+        </div>
+        <span class="ayuda-config">Cambia el tiempo por palabra, qué formas se preguntan y qué tan larga es la carrera</span>
+
+        <label style="margin-top: 18px;">¿Cuántas vidas quieres? (máx. 4)</label>
+        <div class="opciones-cantidad" id="opcionesVidas">
+          <button type="button" class="opcion-cantidad" data-valor="1">1</button>
+          <button type="button" class="opcion-cantidad" data-valor="2">2</button>
+          <button type="button" class="opcion-cantidad seleccionada" data-valor="3">3</button>
+          <button type="button" class="opcion-cantidad" data-valor="4">4</button>
+          
+        </div>
       </div>
 
       <div class="campo-config" id="bloqueCantidad">
@@ -132,6 +154,50 @@
       <button id="btnVolverEstudio">Volver a elegir modo</button>
     </div>
 
+    <!-- ============ MODO ARCADE ============ -->
+    <div id="arcade" style="display: none;">
+      <div id="arcadeJuegoWrap">
+        <div class="arcade-hud">
+          <div class="arcade-vidas" id="arcadeVidas"></div>
+          <div class="arcade-puntaje">⭐ <span id="arcadePuntaje">0</span></div>
+        </div>
+
+        <div class="arcade-timer-contenedor">
+          <div class="arcade-timer-barra" id="arcadeTimerBarra"></div>
+        </div>
+
+        <div class="pista-arcade">
+          <span class="meta-arcade">🥕</span>
+          <svg class="personaje-arcade corriendo" id="personajeArcade" viewBox="0 0 100 100">
+            <ellipse class="pata pata-izq" cx="35" cy="88" rx="9" ry="7"></ellipse>
+            <ellipse class="pata pata-der" cx="65" cy="88" rx="9" ry="7"></ellipse>
+            <ellipse class="cuerpo" cx="50" cy="65" rx="26" ry="20"></ellipse>
+            <ellipse class="oreja oreja-izq" cx="37" cy="10" rx="6" ry="17"></ellipse>
+            <ellipse class="oreja oreja-der" cx="63" cy="10" rx="6" ry="17"></ellipse>
+            <ellipse class="oreja-int oreja-int-izq" cx="37" cy="11" rx="3" ry="12"></ellipse>
+            <ellipse class="oreja-int oreja-int-der" cx="63" cy="11" rx="3" ry="12"></ellipse>
+            <circle class="cabeza" cx="50" cy="34" r="21"></circle>
+            <circle class="ojo ojo-izq" cx="42" cy="33" r="3"></circle>
+            <circle class="ojo ojo-der" cx="58" cy="33" r="3"></circle>
+            <ellipse class="nariz" cx="50" cy="41" rx="4" ry="3"></ellipse>
+          </svg>
+        </div>
+
+        <p id="arcadePregunta" class="arcade-pregunta"></p>
+        <input type="text" id="arcadeRespuesta" placeholder="Escribe rápido..." autocomplete="off" />
+        <button id="arcadeBtnVerificar">¡Responder! ⚡</button>
+        <div id="arcadeResultado"></div>
+      </div>
+
+      <div id="arcadeFinal" style="display: none;">
+        <span class="emoji-final" id="arcadeFinalEmoji">🏆</span>
+        <h2 id="arcadeFinalMensaje"></h2>
+        <p id="arcadeFinalDetalle" class="ayuda-config" style="text-align:center;"></p>
+        <button id="arcadeBtnReintentar">Jugar de nuevo 🔄</button>
+        <button id="arcadeBtnMenu">Volver al menú</button>
+      </div>
+    </div>
+
     <!-- ============ PANTALLA FINAL ============ -->
     <div id="final" style="display: none;">
       <span class="emoji-final">🎉</span>
@@ -149,5 +215,6 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="arcade.js"></script>
 </body>
 </html>

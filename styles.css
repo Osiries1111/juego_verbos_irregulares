@@ -590,7 +590,7 @@ button:focus-visible {
    interno más generoso en vez de dejar crecer toda la página. */
 @media (min-width: 700px) {
   .tabla-estudio-contenedor {
-    max-height: 65vh;
+    max-height: 420px;
   }
 
   /* La tarjeta se ensancha SOLO en modo estudio, para que las 4 columnas
@@ -604,5 +604,11 @@ button:focus-visible {
   .tarjeta.tarjeta-estudio .tabla-estudio thead th,
   .tarjeta.tarjeta-estudio .tabla-estudio tbody td {
     padding: 12px 14px;
+  }
+
+  /* La tarjeta también se ensancha en la pantalla de configuración,
+     para que los botones de modo y columnas no se amontonen en varias filas. */
+  .tarjeta.tarjeta-ancha {
+    max-width: 640px;
   }
 }

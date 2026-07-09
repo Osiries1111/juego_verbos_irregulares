@@ -163,6 +163,14 @@ function inicializarSelectorCantidad() {
 }
 
 /* =========================================================
+   ANCHO DE LA TARJETA (más espacio en desktop según la pantalla)
+   ========================================================= */
+function ajustarAnchoTarjeta(pantalla) {
+  dom.tarjeta.classList.toggle("tarjeta-ancha", pantalla === "config");
+  dom.tarjeta.classList.toggle("tarjeta-estudio", pantalla === "estudio");
+}
+
+/* =========================================================
    INICIO DEL JUEGO
    ========================================================= */
 function comenzarJuego() {
@@ -194,11 +202,11 @@ function comenzarJuego() {
 
   if (estado.modo === "estudio") {
     dom.estudio.style.display = "block";
-    dom.tarjeta.classList.add("tarjeta-estudio");
+    ajustarAnchoTarjeta("estudio");
     mostrarEstudio();
     return;
   }
-  dom.tarjeta.classList.remove("tarjeta-estudio");
+  ajustarAnchoTarjeta("juego");
 
   if (estado.modo === "fila") {
     estado.totalCampos = estado.totalPartidas * (NUM_COLUMNAS - 1);
@@ -467,7 +475,7 @@ function renderizarResumen() {
 function reiniciar() {
   dom.final.style.display = "none";
   dom.estudio.style.display = "none";
-  dom.tarjeta.classList.remove("tarjeta-estudio");
+  ajustarAnchoTarjeta("config");
   dom.config.style.display = "block";
 }
 
@@ -500,6 +508,7 @@ function inicializarEventos() {
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   cargarVerbos();
+  ajustarAnchoTarjeta("config");
   inicializarSelectorModo();
   inicializarSelectorColumnas();
   inicializarSelectorCantidad();

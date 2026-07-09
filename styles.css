@@ -586,15 +586,11 @@ button:focus-visible {
   .tabla-estudio thead th, .tabla-estudio tbody td { padding: 7px 4px; }
 }
 
-/* En pantallas de escritorio hay espacio de sobra: mostramos la lista
-   completa sin scroll interno, dejando que la página haga el scroll. */
+/* En pantallas de escritorio hay más alto disponible: usamos un scroll
+   interno más generoso en vez de dejar crecer toda la página. */
 @media (min-width: 700px) {
   .tabla-estudio-contenedor {
-    max-height: none;
-    overflow-y: visible;
-  }
-  .tabla-estudio thead th {
-    position: static;
+    max-height: 65vh;
   }
 
   /* La tarjeta se ensancha SOLO en modo estudio, para que las 4 columnas

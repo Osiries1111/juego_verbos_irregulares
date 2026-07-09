@@ -30,6 +30,7 @@ const estado = {
    REFERENCIAS AL DOM
    ========================================================= */
 const dom = {
+  tarjeta: document.querySelector(".tarjeta"),
   config: document.getElementById("config"),
   final: document.getElementById("final"),
 
@@ -193,9 +194,11 @@ function comenzarJuego() {
 
   if (estado.modo === "estudio") {
     dom.estudio.style.display = "block";
+    dom.tarjeta.classList.add("tarjeta-estudio");
     mostrarEstudio();
     return;
   }
+  dom.tarjeta.classList.remove("tarjeta-estudio");
 
   if (estado.modo === "fila") {
     estado.totalCampos = estado.totalPartidas * (NUM_COLUMNAS - 1);
@@ -464,6 +467,7 @@ function renderizarResumen() {
 function reiniciar() {
   dom.final.style.display = "none";
   dom.estudio.style.display = "none";
+  dom.tarjeta.classList.remove("tarjeta-estudio");
   dom.config.style.display = "block";
 }
 

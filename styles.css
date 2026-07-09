@@ -427,6 +427,7 @@ h1 {
 .tabla-estudio-contenedor {
   max-height: 360px;
   overflow-y: auto;
+  overflow-x: auto;
   border-radius: 18px;
   border: 2px solid var(--pink-1);
 }
@@ -594,5 +595,18 @@ button:focus-visible {
   }
   .tabla-estudio thead th {
     position: static;
+  }
+
+  /* La tarjeta se ensancha SOLO en modo estudio, para que las 4 columnas
+     respiren y no obliguen a hacer scroll horizontal. En mobile no aplica. */
+  .tarjeta.tarjeta-estudio {
+    max-width: 720px;
+  }
+  .tarjeta.tarjeta-estudio .tabla-estudio {
+    font-size: 0.92rem;
+  }
+  .tarjeta.tarjeta-estudio .tabla-estudio thead th,
+  .tarjeta.tarjeta-estudio .tabla-estudio tbody td {
+    padding: 12px 14px;
   }
 }

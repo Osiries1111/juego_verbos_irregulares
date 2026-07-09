@@ -584,3 +584,15 @@ button:focus-visible {
   .tabla-estudio { font-size: 0.72rem; }
   .tabla-estudio thead th, .tabla-estudio tbody td { padding: 7px 4px; }
 }
+
+/* En pantallas de escritorio hay espacio de sobra: mostramos la lista
+   completa sin scroll interno, dejando que la página haga el scroll. */
+@media (min-width: 700px) {
+  .tabla-estudio-contenedor {
+    max-height: none;
+    overflow-y: visible;
+  }
+  .tabla-estudio thead th {
+    position: static;
+  }
+}

@@ -402,6 +402,71 @@ h1 {
 .feedback-fila.ok { color: #2f9e63; }
 .feedback-fila.mal { color: #c94848; }
 
+/* ---- modo estudiar ---- */
+.buscador-estudio {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  color: var(--plum);
+  border: 2.5px solid var(--pink-2);
+  border-radius: 999px;
+  outline: none;
+  background: #fff;
+  text-align: center;
+  margin-bottom: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.buscador-estudio::placeholder { color: #cbb8d6; font-weight: 500; }
+.buscador-estudio:focus {
+  border-color: var(--blue-3);
+  box-shadow: 0 0 0 4px var(--blue-1);
+}
+
+.tabla-estudio-contenedor {
+  max-height: 360px;
+  overflow-y: auto;
+  border-radius: 18px;
+  border: 2px solid var(--pink-1);
+}
+.tabla-estudio-contenedor::-webkit-scrollbar { width: 6px; }
+.tabla-estudio-contenedor::-webkit-scrollbar-thumb {
+  background: var(--pink-2);
+  border-radius: 999px;
+}
+
+.tabla-estudio {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.tabla-estudio thead th {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, var(--pink-3), var(--blue-3));
+  color: #fff;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  padding: 10px 8px;
+  text-align: center;
+  z-index: 1;
+}
+.tabla-estudio tbody td {
+  padding: 9px 8px;
+  text-align: center;
+  color: var(--plum);
+  font-weight: 600;
+  border-bottom: 1px solid var(--pink-1);
+}
+.tabla-estudio tbody tr:nth-child(even) { background: var(--blue-1); }
+.tabla-estudio tbody tr:nth-child(odd) { background: var(--cream); }
+.tabla-estudio tbody tr.sin-resultados td {
+  color: var(--plum-soft);
+  font-weight: 500;
+  font-style: italic;
+}
+
 /* ---- botones ---- */
 button {
   display: block;
@@ -516,4 +581,6 @@ button:focus-visible {
   .tarjeta { padding: 28px 20px 24px; border-radius: 26px; }
   h1 { font-size: 1.4rem; }
   #pregunta { font-size: 1.1rem; }
+  .tabla-estudio { font-size: 0.72rem; }
+  .tabla-estudio thead th, .tabla-estudio tbody td { padding: 7px 4px; }
 }

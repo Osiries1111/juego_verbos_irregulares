@@ -41,8 +41,16 @@ const dom = {
   avisoColumnasQuiz: document.getElementById("avisoColumnasQuiz"),
 
   opcionesCantidad: document.querySelectorAll(".opcion-cantidad"),
+  bloqueCantidad: document.getElementById("bloqueCantidad"),
   cantidadPersonalizada: document.getElementById("cantidadPersonalizada"),
   btnComenzar: document.getElementById("btnComenzar"),
+
+  // modo estudiar
+  estudio: document.getElementById("estudio"),
+  buscadorEstudio: document.getElementById("buscadorEstudio"),
+  filaEncabezadoEstudio: document.getElementById("filaEncabezadoEstudio"),
+  cuerpoEstudio: document.getElementById("cuerpoEstudio"),
+  btnVolverEstudio: document.getElementById("btnVolverEstudio"),
 
   // modo quiz
   juegoQuiz: document.getElementById("juegoQuiz"),
@@ -89,9 +97,10 @@ function inicializarSelectorModo() {
       btn.classList.add("seleccionada");
       estado.modo = btn.dataset.modo;
 
-      const esFila = estado.modo === "fila";
-      dom.bloqueColumnasQuiz.style.display = esFila ? "none" : "block";
-      dom.bloqueColumnaFila.style.display = esFila ? "block" : "none";
+      dom.bloqueColumnasQuiz.style.display = estado.modo === "quiz" ? "block" : "none";
+      dom.bloqueColumnaFila.style.display = estado.modo === "fila" ? "block" : "none";
+      dom.bloqueCantidad.style.display = estado.modo === "estudio" ? "none" : "block";
+      dom.btnComenzar.textContent = estado.modo === "estudio" ? "Ver lista de verbos 📖" : "Comenzar 🌟";
     });
   });
 }
@@ -180,6 +189,13 @@ function comenzarJuego() {
   dom.final.style.display = "none";
   dom.juegoQuiz.style.display = "none";
   dom.juegoFila.style.display = "none";
+  dom.estudio.style.display = "none";
+
+  if (estado.modo === "estudio") {
+    dom.estudio.style.display = "block";
+    mostrarEstudio();
+    return;
+  }
 
   if (estado.modo === "fila") {
     estado.totalCampos = estado.totalPartidas * (NUM_COLUMNAS - 1);
@@ -192,6 +208,48 @@ function comenzarJuego() {
     dom.juegoQuiz.style.display = "block";
     mostrarPregunta();
   }
+}
+
+/* =========================================================
+   MODO ESTUDIAR
+   ========================================================= */
+function mostrarEstudio() {
+  const encabezados = estado.verbos[0];
+
+  dom.filaEncabezadoEstudio.innerHTML = encabezados
+    .map(texto => `<th>${texto}</th>`)
+    .join("");
+
+  dom.buscadorEstudio.value = "";
+  renderizarFilasEstudio(estado.verbos.slice(1));
+}
+
+function renderizarFilasEstudio(filas) {
+  if (!filas.length) {
+    dom.cuerpoEstudio.innerHTML = `
+      <tr class="sin-resultados">
+        <td colspan="${estado.verbos[0].length}">No se encontró ningún verbo 🌸</td>
+      </tr>`;
+    return;
+  }
+
+  dom.cuerpoEstudio.innerHTML = filas
+    .map(fila => `<tr>${fila.map(valor => `<td>${valor}</td>`).join("")}</tr>`)
+    .join("");
+}
+
+function filtrarEstudio() {
+  const texto = dom.buscadorEstudio.value.trim().toLowerCase();
+  if (!texto) {
+    renderizarFilasEstudio(estado.verbos.slice(1));
+    return;
+  }
+
+  const filtradas = estado.verbos
+    .slice(1)
+    .filter(fila => fila.some(valor => valor.toLowerCase().includes(texto)));
+
+  renderizarFilasEstudio(filtradas);
 }
 
 /* =========================================================
@@ -405,6 +463,7 @@ function renderizarResumen() {
 
 function reiniciar() {
   dom.final.style.display = "none";
+  dom.estudio.style.display = "none";
   dom.config.style.display = "block";
 }
 
@@ -414,6 +473,10 @@ function reiniciar() {
 function inicializarEventos() {
   dom.btnComenzar.addEventListener("click", comenzarJuego);
   dom.btnReiniciar.addEventListener("click", reiniciar);
+
+  // modo estudiar
+  dom.btnVolverEstudio.addEventListener("click", reiniciar);
+  dom.buscadorEstudio.addEventListener("input", filtrarEstudio);
 
   // modo quiz
   dom.btnVerificar.addEventListener("click", verificar);

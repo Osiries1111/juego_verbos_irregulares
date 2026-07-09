@@ -30,6 +30,7 @@
         <div class="opciones-modo" id="opcionesModo">
           <button type="button" class="opcion-modo seleccionada" data-modo="quiz">🎯 Quiz rápido</button>
           <button type="button" class="opcion-modo" data-modo="fila">📝 Completar fila</button>
+          <button type="button" class="opcion-modo" data-modo="estudio">📖 Estudiar</button>
         </div>
       </div>
 
@@ -58,7 +59,7 @@
         <span class="ayuda-config">Se te mostrará esa columna y completarás las otras 3</span>
       </div>
 
-      <div class="campo-config">
+      <div class="campo-config" id="bloqueCantidad">
         <label>¿Cuántos verbos quieres practicar?</label>
         <div class="opciones-cantidad" id="opcionesCantidad">
           <button type="button" class="opcion-cantidad" data-valor="5">5</button>
@@ -97,6 +98,23 @@
 
       <button id="btnVerificarFila">Verificar fila ✓</button>
       <div id="resultadoFila"></div>
+    </div>
+
+    <!-- ============ MODO ESTUDIAR ============ -->
+    <div id="estudio" style="display: none;">
+      <input type="text" id="buscadorEstudio" class="buscador-estudio" placeholder="🔍 Buscar un verbo..." autocomplete="off" />
+      <div class="tabla-estudio-contenedor">
+        <table class="tabla-estudio" id="tablaEstudio">
+          <thead>
+            <tr id="filaEncabezadoEstudio"></tr>
+          </thead>
+          <tbody id="cuerpoEstudio"></tbody>
+        </table>
+      </div>
+      <p class="ayuda-config" style="text-align:center; margin-top: 14px;">
+        Cuando te sientas list@, vuelve y elige "Quiz rápido" o "Completar fila" para ponerte a prueba 🌟
+      </p>
+      <button id="btnVolverEstudio">Volver a elegir modo</button>
     </div>
 
     <!-- ============ PANTALLA FINAL ============ -->

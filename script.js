@@ -5,6 +5,16 @@
 const NUM_COLUMNAS = 4;
 
 /* =========================================================
+   UTILIDAD: comparar respuestas, aceptando alternativas con "/"
+   Ej: si el verbo dice "got/gotten", tanto "got" como "gotten"
+   se consideran correctas.
+   ========================================================= */
+function respuestaCoincide(respuestaUsuario, respuestaEsperada) {
+  const opciones = respuestaEsperada.split("/").map(op => op.trim().toLowerCase());
+  return opciones.includes(respuestaUsuario.trim().toLowerCase());
+}
+
+/* =========================================================
    ESTADO DEL JUEGO
    ========================================================= */
 const estado = {
@@ -380,10 +390,8 @@ function mostrarPregunta() {
 }
 
 function verificar() {
-  const resp = dom.respuesta.value.trim().toLowerCase();
   const { fila, col1, col2 } = estado.preguntas[estado.indice];
-  const correcta = estado.verbos[fila][col2].toLowerCase();
-  const acierto = resp === correcta;
+  const acierto = respuestaCoincide(dom.respuesta.value, estado.verbos[fila][col2]);
 
   const textoPregunta = `${estado.verbos[0][col1]}: ${estado.verbos[fila][col1]} → ${estado.verbos[0][col2]}`;
   estado.historial.push({
@@ -461,9 +469,7 @@ function verificarFila() {
 
   inputs.forEach(input => {
     const col = parseInt(input.dataset.col, 10);
-    const resp = input.value.trim().toLowerCase();
-    const correcta = estado.verbos[fila][col].toLowerCase();
-    const acierto = resp === correcta;
+    const acierto = respuestaCoincide(input.value, estado.verbos[fila][col]);
     const feedback = input.nextElementSibling;
 
     input.classList.remove("correcta", "incorrecta");

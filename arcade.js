@@ -38,6 +38,13 @@
   const PUNTOS_BONUS = 25;
   const PUNTOS_EXTRA_VIDA_LLENA = 40;
 
+  /* -------- comparar respuestas, aceptando alternativas con "/" --------
+     Ej: si el verbo dice "got/gotten", tanto "got" como "gotten" valen. */
+  function respuestaCoincide(respuestaUsuario, respuestaEsperada) {
+    const opciones = respuestaEsperada.split("/").map(op => op.trim().toLowerCase());
+    return opciones.includes(respuestaUsuario.trim().toLowerCase());
+  }
+
   /* -------- referencias al DOM propias del arcade -------- */
   const dom = {
     vidas: document.getElementById("arcadeVidas"),
@@ -172,9 +179,7 @@
     if (estado.terminado || !estado.preguntaActual) return;
 
     const { fila, col2, esBonus } = estado.preguntaActual;
-    const resp = valorRespuesta.trim().toLowerCase();
-    const correcta = estado.verbos[fila][col2].toLowerCase();
-    const acierto = resp !== "" && resp === correcta;
+    const acierto = valorRespuesta.trim() !== "" && respuestaCoincide(valorRespuesta, estado.verbos[fila][col2]);
 
     if (acierto) {
       const puntos = Math.round((esBonus ? PUNTOS_BONUS : PUNTOS_BASE) * estado.preset.multiplicador);

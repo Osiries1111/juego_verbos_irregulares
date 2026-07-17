@@ -1,6 +1,9 @@
 /* ============================================================
    MODO ARCADE — hoja de estilos aislada, solo se usa junto a
    arcade.js. No depende de clases de los otros modos de juego.
+
+   El personaje y el tile de terreno son sprites reales del pack
+   "Pixel Platformer" de Kenney (CC0) — ver assets/LICENSE-kenney-*.
    ============================================================ */
 
 .arcade-hud {
@@ -50,63 +53,174 @@
   border-radius: 20px;
   margin-bottom: 20px;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--blue-1) 0%, var(--lav-1) 55%, #c9ecc6 55%, #a9dba3 100%);
+  background: linear-gradient(180deg, #8ecdf0 0%, #cdeeff 65%);
   border: 3px solid var(--pink-2);
-  transition: background 0.2s ease, border-color 0.2s ease;
 }
+
+/* Franja de montañas: 3 tiles REALES distintos de Kenney (uno por bioma,
+   de Tiles/Backgrounds), no un filtro de color sobre el mismo tile. Se
+   anima el scroll horizontal para dar sensación de caminata constante. */
+.fondo-arcade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 38%;
+  height: 48px;
+  background-repeat: repeat-x;
+  background-size: 48px 48px;
+  background-position: bottom;
+  image-rendering: pixelated;
+  animation: scroll-fondo 6s linear infinite;
+}
+.pista-arcade.terreno-verde .fondo-arcade { background-image: url('assets/montana-verde.png'); }
+.pista-arcade.terreno-nevado .fondo-arcade { background-image: url('assets/montana-nevado.png'); }
+.pista-arcade.terreno-artico .fondo-arcade { background-image: url('assets/montana-arido.png'); }
+@keyframes scroll-fondo {
+  from { background-position-x: 0; }
+  to   { background-position-x: -48px; }
+}
+
 .meta-arcade {
   position: absolute;
   right: 14px;
-  bottom: 12px;
-  font-size: 2.2rem;
-  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.15));
+  bottom: 10px;
+  width: 32px;
+  height: 32px;
+  background-image: url('assets/meta-llave.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.25));
+  z-index: 2;
 }
 
-/* ---- personaje SVG animado ---- */
+/* Suelo: una sola fila del tile de pasto+tierra arriba (repetida solo
+   horizontalmente) + un relleno sólido del mismo tono de tierra debajo,
+   con scroll continuo (más rápido que el fondo, efecto parallax). */
+.suelo-arcade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  background-color: #c37a5b;
+  background-image: url('assets/terreno-base.png');
+  background-repeat: repeat-x;
+  background-size: 36px 36px;
+  background-position: top;
+  image-rendering: pixelated;
+  animation: scroll-suelo 1.4s linear infinite;
+}
+@keyframes scroll-suelo {
+  from { background-position-x: 0; }
+  to   { background-position-x: -36px; }
+}
+
+/* ---- personaje: sprite real (Kenney Pixel Platformer, CC0) ----
+   Cada imagen es una tira vertical de 2 cuadros de 24×24px (paso A / paso B),
+   los 2 únicos frames reales que trae cada personaje jugable en el pack.
+   Se escala 2× (48px) para verse nítido. */
 .personaje-arcade {
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   left: 5%;
-  width: 64px;
-  height: 64px;
-  transition: left 0.45s ease;
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-size: 48px 96px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  transition: left 0.75s ease;
+  z-index: 3;
 }
-.personaje-arcade .cuerpo { fill: var(--pink-2); }
-.personaje-arcade .pata { fill: var(--pink-3); transform-origin: center top; }
-.personaje-arcade .cabeza { fill: var(--pink-1); }
-.personaje-arcade .oreja { fill: var(--pink-1); transform-origin: center bottom; }
-.personaje-arcade .oreja-int { fill: var(--pink-3); transform-origin: center bottom; }
-.personaje-arcade .ojo { fill: var(--plum); }
-.personaje-arcade .nariz { fill: var(--pink-3); }
-
-.personaje-arcade.corriendo .pata-izq { animation: arcade-paso 0.28s infinite alternate; }
-.personaje-arcade.corriendo .pata-der { animation: arcade-paso 0.28s infinite alternate-reverse; }
-@keyframes arcade-paso {
-  from { transform: translateY(0) rotate(0deg); }
-  to   { transform: translateY(-3px) rotate(12deg); }
+.personaje-arcade.corriendo {
+  animation: sprite-caminar 0.6s steps(1) infinite;
+}
+@keyframes sprite-caminar {
+  0%, 49%   { background-position-y: 0; }
+  50%, 100% { background-position-y: -48px; }
+}
+.personaje-arcade.saltando {
+  animation: sprite-caminar 0.3s steps(1) infinite, sprite-salto 0.75s ease;
+}
+@keyframes sprite-salto {
+  0%, 100% { transform: translateY(0); }
+  40%      { transform: translateY(-22px); }
+}
+.personaje-arcade.tropieza {
+  animation: sprite-tropiezo 0.5s ease;
+}
+@keyframes sprite-tropiezo {
+  0%   { transform: rotate(0deg) translateX(0); }
+  25%  { transform: rotate(-12deg) translateX(-3px); }
+  60%  { transform: rotate(8deg) translateX(2px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+.personaje-arcade.celebrando {
+  animation: sprite-caminar 0.35s steps(1) infinite, sprite-celebrar 0.5s ease infinite;
+}
+@keyframes sprite-celebrar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-16px); }
 }
 
-.personaje-arcade.corriendo .oreja-izq,
-.personaje-arcade.corriendo .oreja-int-izq { animation: arcade-oreja 0.28s infinite alternate; }
-.personaje-arcade.corriendo .oreja-der,
-.personaje-arcade.corriendo .oreja-int-der { animation: arcade-oreja 0.28s infinite alternate-reverse; }
-@keyframes arcade-oreja {
-  from { transform: rotate(-4deg); }
-  to   { transform: rotate(7deg); }
+/* ---- obstáculo: recorre toda la pista de derecha a izquierda, siempre
+   visible durante el trayecto (no aparece y desaparece de golpe) ---- */
+.obstaculo-arcade {
+  position: absolute;
+  bottom: 8px;
+  left: 100%;
+  width: 26px;
+  height: 26px;
+  background-image: url('assets/obstaculo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  z-index: 2;
+  animation: obstaculo-recorrido 1.8s linear forwards;
+}
+@keyframes obstaculo-recorrido {
+  from { left: 100%; }
+  to   { left: -10%; }
 }
 
-.personaje-arcade.tropieza { animation: arcade-tropiezo 0.5s ease; }
-@keyframes arcade-tropiezo {
-  0%   { transform: rotate(0deg) translateY(0); }
-  25%  { transform: rotate(-18deg) translateY(3px); }
-  55%  { transform: rotate(10deg); }
-  100% { transform: rotate(0deg); }
+/* ---- selector de personaje (miniaturas del sprite real) ---- */
+.opciones-personaje {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
 }
-
-.personaje-arcade.celebrando { animation: arcade-salto 0.55s ease infinite; }
-@keyframes arcade-salto {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%      { transform: translateY(-16px) rotate(-8deg); }
+.opcion-personaje {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 2.5px solid var(--pink-2);
+  border-radius: 12px;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
+  background-position: 0% 0%;
+  image-rendering: pixelated;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s ease;
+}
+.opcion-personaje:hover {
+  border-color: var(--blue-3);
+  transform: translateY(-2px);
+}
+.opcion-personaje.seleccionada {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px var(--pink-3);
+  transform: translateY(-2px);
+  animation: miniatura-caminar 0.6s steps(1) infinite;
+}
+@keyframes miniatura-caminar {
+  0%, 49%   { background-position-y: 0%; }
+  50%, 100% { background-position-y: 100%; }
 }
 
 /* ---- pregunta y respuesta ---- */
@@ -175,28 +289,9 @@
 }
 
 /* ---- modo oscuro ----
-   La pista se oscurece, pero el conejito se aclara para que resalte
-   bien contra ella (en vez de mezclarse con tonos igual de oscuros). */
-body.tema-oscuro .pista-arcade {
-  background: linear-gradient(180deg, var(--blue-1) 0%, var(--lav-1) 55%, #2c5138 55%, #23422d 100%);
-  border-color: var(--pink-3);
-}
-
-body.tema-oscuro .personaje-arcade .cuerpo { fill: #ffd1e3; }
-body.tema-oscuro .personaje-arcade .cabeza,
-body.tema-oscuro .personaje-arcade .oreja { fill: #fff0f7; }
-body.tema-oscuro .personaje-arcade .ojo { fill: #3a2c4f; }
-
+   La pista (cielo, montañas, pasto, personaje) se mantiene igual en ambos
+   temas a propósito, como una "vitrina" fija — ver conversación previa. */
+body.tema-oscuro .opcion-personaje { background-color: #372c4f; border-color: #8a5fa0; }
 body.tema-oscuro #arcadeRespuesta { background: #2c2340; }
 body.tema-oscuro #arcadeResultado.bonus { background: #3a2f10; color: #ffd36e; }
 body.tema-oscuro .arcade-pregunta.bonus { color: #3a2a00; }
-
-/* El conejito mantiene siempre su paleta de modo claro, sin importar el
-   tema — colores fijos en vez de var(), para que no cambie con --pink-*. */
-body.tema-oscuro .personaje-arcade .cuerpo { fill: #ffb6d0; }
-body.tema-oscuro .personaje-arcade .pata { fill: #ff8fb1; }
-body.tema-oscuro .personaje-arcade .cabeza { fill: #ffe3ef; }
-body.tema-oscuro .personaje-arcade .oreja { fill: #ffe3ef; }
-body.tema-oscuro .personaje-arcade .oreja-int { fill: #ff8fb1; }
-body.tema-oscuro .personaje-arcade .ojo { fill: #5b4b6a; }
-body.tema-oscuro .personaje-arcade .nariz { fill: #ff8fb1; }

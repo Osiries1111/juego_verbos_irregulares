@@ -1,0 +1,113 @@
+/* ============================================================
+   MODO EN CONTEXTO — hoja de estilos aislada.
+   ============================================================ */
+
+.contexto-oracion {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.6;
+  color: var(--plum);
+  background: linear-gradient(135deg, var(--pink-1), var(--blue-1));
+  border-radius: 20px;
+  padding: 24px 20px;
+  margin: 0 0 20px;
+}
+
+.contexto-oracion .hueco {
+  display: inline-block;
+  min-width: 76px;
+  border-bottom: 3px solid var(--pink-3);
+  margin: 0 3px;
+}
+
+.contexto-opciones {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.opcion-contexto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin: 0;
+  padding: 10px 22px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--plum);
+  background: #fff;
+  border: 2.5px solid var(--pink-2);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s ease;
+}
+.opcion-contexto:hover:not(:disabled) {
+  border-color: var(--blue-3);
+  transform: translateY(-2px);
+}
+.opcion-contexto:disabled {
+  cursor: default;
+}
+
+/* Estado "elegido, aún sin verificar" — nada se revela hasta el resumen final. */
+.opcion-contexto.seleccionada {
+  border-color: var(--blue-3);
+  background: var(--blue-1);
+  box-shadow: 0 0 0 3px rgba(142, 197, 252, 0.4);
+  color: var(--plum);
+}
+
+/* Pista/explicación dentro de cada ítem del resumen final. */
+.pista-texto {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+#contextoBtnSiguiente:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#contextoFinal { text-align: center; }
+#contextoFinal h2 {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.4rem;
+  color: var(--plum);
+  margin: 10px 0 4px;
+}
+
+/* ---- modo oscuro ---- */
+body.tema-oscuro .opcion-contexto {
+  background: #372c4f;
+  border-color: #8a5fa0;
+  color: var(--plum);
+}
+body.tema-oscuro .opcion-contexto:hover:not(:disabled) {
+  border-color: var(--blue-3);
+  background: #423460;
+}
+/* La selección debe verse igual de clara que en modo claro: mismo anillo
+   celeste, ahora sobre un fondo oscuro coherente con el resto del tema. */
+body.tema-oscuro .opcion-contexto.seleccionada {
+  background: var(--blue-1);
+  border-color: var(--blue-3);
+  box-shadow:
+    0 0 0 2px #1a1526,
+    0 0 0 4px var(--blue-3),
+    0 6px 18px -4px rgba(142, 197, 252, 0.55);
+  color: var(--plum);
+}

@@ -9,11 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="arcade.css" />
+  <link rel="stylesheet" href="contexto.css" />
 </head>
 <body>
 
   <div class="barra-superior">
-    <a class="btn-flotante" id="linkGithub" href="https://github.com/Osiries1111" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub" title="Ver en GitHub">
+    <a class="btn-flotante" id="linkGithub" href="https://github.com/TU-USUARIO/TU-REPOSITORIO" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub" title="Ver en GitHub">
       <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
         0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
@@ -48,6 +49,7 @@
           <button type="button" class="opcion-modo" data-modo="fila">📝 Completar fila</button>
           <button type="button" class="opcion-modo" data-modo="estudio">📖 Estudiar</button>
           <button type="button" class="opcion-modo" data-modo="arcade">🏃 Modo Arcade</button>
+          <button type="button" class="opcion-modo" data-modo="contexto">🧩 En Contexto</button>
         </div>
       </div>
 
@@ -92,7 +94,23 @@
           <button type="button" class="opcion-cantidad" data-valor="2">2</button>
           <button type="button" class="opcion-cantidad seleccionada" data-valor="3">3</button>
           <button type="button" class="opcion-cantidad" data-valor="4">4</button>
-          <button type="button" class="opcion-cantidad" data-valor="4">5</button>
+          <button type="button" class="opcion-cantidad" data-valor="5">5</button>
+        </div>
+
+        <label style="margin-top: 18px;">Elige tu personaje</label>
+        <div class="opciones-personaje" id="opcionesPersonaje">
+          <button type="button" class="opcion-personaje seleccionada" data-personaje="1" style="background-image:url('assets/personajes/personaje_1.png')" aria-label="Personaje 1"></button>
+          <button type="button" class="opcion-personaje" data-personaje="2" style="background-image:url('assets/personajes/personaje_2.png')" aria-label="Personaje 2"></button>
+          <button type="button" class="opcion-personaje" data-personaje="3" style="background-image:url('assets/personajes/personaje_3.png')" aria-label="Personaje 3"></button>
+          <button type="button" class="opcion-personaje" data-personaje="4" style="background-image:url('assets/personajes/personaje_4.png')" aria-label="Personaje 4"></button>
+          <button type="button" class="opcion-personaje" data-personaje="5" style="background-image:url('assets/personajes/personaje_5.png')" aria-label="Personaje 5"></button>
+        </div>
+
+        <label style="margin-top: 18px;">Elige el terreno</label>
+        <div class="opciones-columnas" id="opcionesTerreno">
+          <button type="button" class="opcion-columna seleccionada" data-terreno="verde">🌿 Verde</button>
+          <button type="button" class="opcion-columna" data-terreno="nevado">❄️ Nevado</button>
+          <button type="button" class="opcion-columna" data-terreno="artico">🧊 Ártico</button>
         </div>
       </div>
 
@@ -166,21 +184,11 @@
           <div class="arcade-timer-barra" id="arcadeTimerBarra"></div>
         </div>
 
-        <div class="pista-arcade">
-          <span class="meta-arcade">🥕</span>
-          <svg class="personaje-arcade corriendo" id="personajeArcade" viewBox="0 0 100 100">
-            <ellipse class="pata pata-izq" cx="35" cy="88" rx="9" ry="7"></ellipse>
-            <ellipse class="pata pata-der" cx="65" cy="88" rx="9" ry="7"></ellipse>
-            <ellipse class="cuerpo" cx="50" cy="65" rx="26" ry="20"></ellipse>
-            <ellipse class="oreja oreja-izq" cx="37" cy="10" rx="6" ry="17"></ellipse>
-            <ellipse class="oreja oreja-der" cx="63" cy="10" rx="6" ry="17"></ellipse>
-            <ellipse class="oreja-int oreja-int-izq" cx="37" cy="11" rx="3" ry="12"></ellipse>
-            <ellipse class="oreja-int oreja-int-der" cx="63" cy="11" rx="3" ry="12"></ellipse>
-            <circle class="cabeza" cx="50" cy="34" r="21"></circle>
-            <circle class="ojo ojo-izq" cx="42" cy="33" r="3"></circle>
-            <circle class="ojo ojo-der" cx="58" cy="33" r="3"></circle>
-            <ellipse class="nariz" cx="50" cy="41" rx="4" ry="3"></ellipse>
-          </svg>
+        <div class="pista-arcade terreno-verde" id="pistaArcade">
+          <div class="fondo-arcade"></div>
+          <div class="suelo-arcade" id="sueloArcade"></div>
+          <span class="meta-arcade" aria-label="Meta"></span>
+          <div class="personaje-arcade corriendo" id="personajeArcade" style="background-image:url('assets/personajes/personaje_1.png')"></div>
         </div>
 
         <p id="arcadePregunta" class="arcade-pregunta"></p>
@@ -195,6 +203,34 @@
         <p id="arcadeFinalDetalle" class="ayuda-config" style="text-align:center;"></p>
         <button id="arcadeBtnReintentar">Jugar de nuevo 🔄</button>
         <button id="arcadeBtnMenu">Volver al menú</button>
+      </div>
+    </div>
+
+    <!-- ============ MODO EN CONTEXTO ============ -->
+    <div id="contexto" style="display: none;">
+      <div id="contextoJuegoWrap">
+        <div class="barra-progreso" id="progresoContexto"></div>
+
+        <p id="contextoOracion" class="contexto-oracion"></p>
+
+        <div class="contexto-opciones" id="contextoOpciones"></div>
+
+        <button id="contextoBtnSiguiente" disabled>Siguiente pregunta →</button>
+      </div>
+
+      <div id="contextoFinal" style="display: none;">
+        <span class="emoji-final">🎉</span>
+        <h2 id="contextoFinalMensaje"></h2>
+
+        <div class="resumen">
+          <h3>✅ Respuestas correctas</h3>
+          <ul class="lista-resumen" id="contextoListaCorrectas"></ul>
+          <h3>❌ Respuestas incorrectas</h3>
+          <ul class="lista-resumen" id="contextoListaIncorrectas"></ul>
+        </div>
+
+        <button id="contextoBtnReintentar">Jugar de nuevo 🔄</button>
+        <button id="contextoBtnMenu">Volver al menú</button>
       </div>
     </div>
 
@@ -216,5 +252,6 @@
 
   <script src="script.js"></script>
   <script src="arcade.js"></script>
+  <script src="contexto.js"></script>
 </body>
 </html>

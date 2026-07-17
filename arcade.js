@@ -47,6 +47,8 @@
 
   /* -------- referencias al DOM propias del arcade -------- */
   const dom = {
+    pista: document.getElementById("pistaArcade"),
+    suelo: document.getElementById("sueloArcade"),
     vidas: document.getElementById("arcadeVidas"),
     puntaje: document.getElementById("arcadePuntaje"),
     timerBarra: document.getElementById("arcadeTimerBarra"),
@@ -87,9 +89,19 @@
 
     dom.final.style.display = "none";
     dom.juegoWrap.style.display = "block";
+
+    // personaje elegido: sprite real (tira de 3 cuadros) del pack Kenney
+    const personaje = opciones.personaje || "1";
+    dom.personaje.style.backgroundImage = `url('assets/personajes/personaje_${personaje}.png')`;
     dom.personaje.style.left = "5%";
-    dom.personaje.classList.remove("tropieza", "celebrando");
+    dom.personaje.classList.remove("tropieza", "celebrando", "saltando");
     dom.personaje.classList.add("corriendo");
+
+    // terreno elegido: mismo tile, distinto filtro CSS
+    dom.pista.classList.remove("terreno-verde", "terreno-nevado", "terreno-artico");
+    dom.pista.classList.add(`terreno-${opciones.terreno || "verde"}`);
+
+    limpiarObstaculos();
 
     actualizarVidas();
     actualizarPuntaje();
@@ -105,9 +117,41 @@
     dom.puntaje.textContent = estado.puntaje;
   }
 
+  /* -------- obstáculos: cruzan toda la pista de forma continua y el
+     personaje salta justo cuando el obstáculo pasa por su posición -------- */
+  const PROB_OBSTACULO = 0.45;
+  const DURACION_OBSTACULO_MS = 1800;
+  const RECORRIDO_OBSTACULO = 110; // de 100% a -10%
+
+  function limpiarObstaculos() {
+    dom.pista.querySelectorAll(".obstaculo-arcade").forEach(el => el.remove());
+  }
+
   function moverPersonaje() {
-    const porcentaje = 5 + (estado.pasos / estado.preset.pasosParaGanar) * 82;
-    dom.personaje.style.left = `${Math.min(porcentaje, 87)}%`;
+    const porcentajeAnterior = parseFloat(dom.personaje.style.left) || 5;
+    const porcentajeNuevo = Math.min(5 + (estado.pasos / estado.preset.pasosParaGanar) * 82, 87);
+
+    const hayObstaculo = Math.random() < PROB_OBSTACULO;
+
+    if (hayObstaculo) {
+      const obstaculo = document.createElement("div");
+      obstaculo.className = "obstaculo-arcade";
+      dom.pista.appendChild(obstaculo);
+      obstaculo.addEventListener("animationend", () => obstaculo.remove());
+
+      // el obstáculo va de 100% a -10%: calculamos cuándo cruza al personaje
+      const momentoDeCruce = ((100 - porcentajeAnterior) / RECORRIDO_OBSTACULO) * DURACION_OBSTACULO_MS;
+      setTimeout(() => {
+        dom.personaje.classList.remove("corriendo");
+        dom.personaje.classList.add("saltando");
+        setTimeout(() => {
+          dom.personaje.classList.remove("saltando");
+          dom.personaje.classList.add("corriendo");
+        }, 500);
+      }, Math.max(0, momentoDeCruce - 250));
+    }
+
+    dom.personaje.style.left = `${porcentajeNuevo}%`;
   }
 
   /* -------- generación de preguntas -------- */
@@ -209,7 +253,7 @@
         return;
       }
     } else {
-      dom.personaje.classList.remove("corriendo");
+      dom.personaje.classList.remove("corriendo", "saltando");
       dom.personaje.classList.add("tropieza");
       setTimeout(() => {
         dom.personaje.classList.remove("tropieza");
@@ -243,14 +287,15 @@
     detenerTemporizador();
     dom.juegoWrap.style.display = "none";
     dom.final.style.display = "block";
+    limpiarObstaculos();
 
     if (gano) {
-      dom.personaje.classList.remove("tropieza", "corriendo");
+      dom.personaje.classList.remove("tropieza", "corriendo", "saltando");
       dom.personaje.classList.add("celebrando");
       dom.finalEmoji.textContent = "🏆";
       dom.finalMensaje.textContent = "¡Llegaste a la meta!";
     } else {
-      dom.personaje.classList.remove("corriendo", "celebrando");
+      dom.personaje.classList.remove("corriendo", "celebrando", "saltando");
       dom.finalEmoji.textContent = "💔";
       dom.finalMensaje.textContent = "Te quedaste sin vidas";
     }

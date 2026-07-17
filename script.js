@@ -29,6 +29,8 @@ const estado = {
   totalPartidas: 10, // número de verbos/filas a practicar (no de campos individuales)
   dificultadArcade: "medio",
   vidasArcade: 3,
+  personajeArcade: "1",
+  terrenoArcade: "verde",
 
   // progreso de la partida
   indice: 0,
@@ -63,7 +65,12 @@ const dom = {
   bloqueArcadeOpciones: document.getElementById("bloqueArcadeOpciones"),
   opcionesDificultad: document.querySelectorAll("#opcionesDificultad .opcion-columna"),
   opcionesVidas: document.querySelectorAll("#opcionesVidas .opcion-cantidad"),
+  opcionesPersonaje: document.querySelectorAll("#opcionesPersonaje .opcion-personaje"),
+  opcionesTerreno: document.querySelectorAll("#opcionesTerreno .opcion-columna"),
   arcade: document.getElementById("arcade"),
+
+  // modo en contexto (la pantalla de juego vive en contexto.js)
+  contexto: document.getElementById("contexto"),
 
   // modo estudiar
   estudio: document.getElementById("estudio"),
@@ -125,6 +132,7 @@ function inicializarSelectorModo() {
       let textoBoton = "Comenzar 🌟";
       if (estado.modo === "estudio") textoBoton = "Ver lista de verbos 📖";
       if (estado.modo === "arcade") textoBoton = "¡Empezar carrera! 🏁";
+      if (estado.modo === "contexto") textoBoton = "¡Practicar en contexto! 🧩";
       dom.btnComenzar.textContent = textoBoton;
     });
   });
@@ -147,6 +155,22 @@ function inicializarSelectorArcade() {
       dom.opcionesVidas.forEach(b => b.classList.remove("seleccionada"));
       btn.classList.add("seleccionada");
       estado.vidasArcade = parseInt(btn.dataset.valor, 10);
+    });
+  });
+
+  dom.opcionesPersonaje.forEach(btn => {
+    btn.addEventListener("click", () => {
+      dom.opcionesPersonaje.forEach(b => b.classList.remove("seleccionada"));
+      btn.classList.add("seleccionada");
+      estado.personajeArcade = btn.dataset.personaje;
+    });
+  });
+
+  dom.opcionesTerreno.forEach(btn => {
+    btn.addEventListener("click", () => {
+      dom.opcionesTerreno.forEach(b => b.classList.remove("seleccionada"));
+      btn.classList.add("seleccionada");
+      estado.terrenoArcade = btn.dataset.terreno;
     });
   });
 }
@@ -240,7 +264,7 @@ function inicializarTema() {
    ========================================================= */
 function ajustarAnchoTarjeta(pantalla) {
   dom.tarjeta.classList.toggle("tarjeta-ancha", pantalla === "config");
-  dom.tarjeta.classList.toggle("tarjeta-estudio", pantalla === "estudio" || pantalla === "arcade");
+  dom.tarjeta.classList.toggle("tarjeta-estudio", pantalla === "estudio" || pantalla === "arcade" || pantalla === "contexto");
 }
 
 /* =========================================================
@@ -273,6 +297,7 @@ function comenzarJuego() {
   dom.juegoFila.style.display = "none";
   dom.estudio.style.display = "none";
   dom.arcade.style.display = "none";
+  dom.contexto.style.display = "none";
 
   if (estado.modo === "estudio") {
     dom.estudio.style.display = "block";
@@ -287,7 +312,19 @@ function comenzarJuego() {
     window.IniciarArcade({
       verbos: estado.verbos,
       dificultad: estado.dificultadArcade,
-      vidasMax: estado.vidasArcade
+      vidasMax: estado.vidasArcade,
+      personaje: estado.personajeArcade,
+      terreno: estado.terrenoArcade
+    });
+    return;
+  }
+
+  if (estado.modo === "contexto") {
+    dom.contexto.style.display = "block";
+    ajustarAnchoTarjeta("contexto");
+    window.IniciarContexto({
+      verbos: estado.verbos,
+      cantidad: estado.totalPartidas
     });
     return;
   }
@@ -558,6 +595,7 @@ function reiniciar() {
   dom.final.style.display = "none";
   dom.estudio.style.display = "none";
   dom.arcade.style.display = "none";
+  dom.contexto.style.display = "none";
   ajustarAnchoTarjeta("config");
   dom.config.style.display = "block";
 }
@@ -571,6 +609,9 @@ function inicializarEventos() {
 
   // modo arcade: el módulo arcade.js avisa por evento cuando quiere volver al menú
   document.addEventListener("arcadeVolverAlMenu", reiniciar);
+
+  // modo contexto: mismo patrón
+  document.addEventListener("contextoVolverAlMenu", reiniciar);
 
   // modo estudiar
   dom.btnVolverEstudio.addEventListener("click", reiniciar);

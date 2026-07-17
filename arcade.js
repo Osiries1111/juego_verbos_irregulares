@@ -98,7 +98,7 @@
     dom.personaje.classList.add("corriendo");
 
     // terreno elegido: mismo tile, distinto filtro CSS
-    dom.pista.classList.remove("terreno-verde", "terreno-nevado", "terreno-artico");
+    dom.pista.classList.remove("terreno-verde", "terreno-nevado", "terreno-desertico");
     dom.pista.classList.add(`terreno-${opciones.terreno || "verde"}`);
 
     limpiarObstaculos();
@@ -118,40 +118,51 @@
   }
 
   /* -------- obstáculos: cruzan toda la pista de forma continua y el
-     personaje salta justo cuando el obstáculo pasa por su posición -------- */
+     personaje salta justo cuando realmente se solapan (colisión real
+     cuadro a cuadro, no un cálculo fijo — el personaje también se está
+     moviendo al mismo tiempo que el obstáculo). -------- */
   const PROB_OBSTACULO = 0.45;
-  const DURACION_OBSTACULO_MS = 1800;
-  const RECORRIDO_OBSTACULO = 110; // de 100% a -10%
 
   function limpiarObstaculos() {
     dom.pista.querySelectorAll(".obstaculo-arcade").forEach(el => el.remove());
   }
 
+  function vigilarColision(obstaculo) {
+    let saltado = false;
+
+    function chequear() {
+      if (!obstaculo.isConnected) return; // ya se removió al terminar su animación
+
+      if (!saltado) {
+        const ro = obstaculo.getBoundingClientRect();
+        const rp = dom.personaje.getBoundingClientRect();
+        const seSolapan = ro.left < rp.right + 4 && ro.right > rp.left - 4;
+        if (seSolapan) {
+          saltado = true;
+          dom.personaje.classList.remove("corriendo");
+          dom.personaje.classList.add("saltando");
+          setTimeout(() => {
+            dom.personaje.classList.remove("saltando");
+            dom.personaje.classList.add("corriendo");
+          }, 500);
+        }
+      }
+      requestAnimationFrame(chequear);
+    }
+    requestAnimationFrame(chequear);
+  }
+
   function moverPersonaje() {
-    const porcentajeAnterior = parseFloat(dom.personaje.style.left) || 5;
     const porcentajeNuevo = Math.min(5 + (estado.pasos / estado.preset.pasosParaGanar) * 82, 87);
+    dom.personaje.style.left = `${porcentajeNuevo}%`;
 
-    const hayObstaculo = Math.random() < PROB_OBSTACULO;
-
-    if (hayObstaculo) {
+    if (Math.random() < PROB_OBSTACULO) {
       const obstaculo = document.createElement("div");
       obstaculo.className = "obstaculo-arcade";
       dom.pista.appendChild(obstaculo);
       obstaculo.addEventListener("animationend", () => obstaculo.remove());
-
-      // el obstáculo va de 100% a -10%: calculamos cuándo cruza al personaje
-      const momentoDeCruce = ((100 - porcentajeAnterior) / RECORRIDO_OBSTACULO) * DURACION_OBSTACULO_MS;
-      setTimeout(() => {
-        dom.personaje.classList.remove("corriendo");
-        dom.personaje.classList.add("saltando");
-        setTimeout(() => {
-          dom.personaje.classList.remove("saltando");
-          dom.personaje.classList.add("corriendo");
-        }, 500);
-      }, Math.max(0, momentoDeCruce - 250));
+      vigilarColision(obstaculo);
     }
-
-    dom.personaje.style.left = `${porcentajeNuevo}%`;
   }
 
   /* -------- generación de preguntas -------- */

@@ -99,18 +99,28 @@
 
         <label style="margin-top: 18px;">Elige tu personaje</label>
         <div class="opciones-personaje" id="opcionesPersonaje">
-          <button type="button" class="opcion-personaje seleccionada" data-personaje="1" style="background-image:url('assets/personajes/personaje_1.png')" aria-label="Personaje 1"></button>
-          <button type="button" class="opcion-personaje" data-personaje="2" style="background-image:url('assets/personajes/personaje_2.png')" aria-label="Personaje 2"></button>
-          <button type="button" class="opcion-personaje" data-personaje="3" style="background-image:url('assets/personajes/personaje_3.png')" aria-label="Personaje 3"></button>
-          <button type="button" class="opcion-personaje" data-personaje="4" style="background-image:url('assets/personajes/personaje_4.png')" aria-label="Personaje 4"></button>
-          <button type="button" class="opcion-personaje" data-personaje="5" style="background-image:url('assets/personajes/personaje_5.png')" aria-label="Personaje 5"></button>
+          <button type="button" class="opcion-personaje seleccionada" data-personaje="1" aria-label="Personaje 1">
+            <span class="miniatura-recorte"><img src="assets/personajes/personaje_1.png" alt="" /></span>
+          </button>
+          <button type="button" class="opcion-personaje" data-personaje="2" aria-label="Personaje 2">
+            <span class="miniatura-recorte"><img src="assets/personajes/personaje_2.png" alt="" /></span>
+          </button>
+          <button type="button" class="opcion-personaje" data-personaje="3" aria-label="Personaje 3">
+            <span class="miniatura-recorte"><img src="assets/personajes/personaje_3.png" alt="" /></span>
+          </button>
+          <button type="button" class="opcion-personaje" data-personaje="4" aria-label="Personaje 4">
+            <span class="miniatura-recorte"><img src="assets/personajes/personaje_4.png" alt="" /></span>
+          </button>
+          <button type="button" class="opcion-personaje" data-personaje="5" aria-label="Personaje 5">
+            <span class="miniatura-recorte"><img src="assets/personajes/personaje_5.png" alt="" /></span>
+          </button>
         </div>
 
         <label style="margin-top: 18px;">Elige el terreno</label>
         <div class="opciones-columnas" id="opcionesTerreno">
           <button type="button" class="opcion-columna seleccionada" data-terreno="verde">🌿 Verde</button>
           <button type="button" class="opcion-columna" data-terreno="nevado">❄️ Nevado</button>
-          <button type="button" class="opcion-columna" data-terreno="artico">🧊 Ártico</button>
+          <button type="button" class="opcion-columna" data-terreno="desertico">🏜️ Desértico</button>
         </div>
       </div>
 
@@ -185,7 +195,6 @@
         </div>
 
         <div class="pista-arcade terreno-verde" id="pistaArcade">
-          <div class="fondo-arcade"></div>
           <div class="suelo-arcade" id="sueloArcade"></div>
           <span class="meta-arcade" aria-label="Meta"></span>
           <div class="personaje-arcade corriendo" id="personajeArcade" style="background-image:url('assets/personajes/personaje_1.png')"></div>

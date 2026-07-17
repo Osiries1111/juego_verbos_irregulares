@@ -57,28 +57,19 @@
   border: 3px solid var(--pink-2);
 }
 
-/* Franja de montañas: 3 tiles REALES distintos de Kenney (uno por bioma,
-   de Tiles/Backgrounds), no un filtro de color sobre el mismo tile. Se
-   anima el scroll horizontal para dar sensación de caminata constante. */
-.fondo-arcade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 38%;
-  height: 48px;
-  background-repeat: repeat-x;
-  background-size: 48px 48px;
-  background-position: bottom;
-  image-rendering: pixelated;
-  animation: scroll-fondo 6s linear infinite;
+/* Cielo: color distinto según el terreno elegido (sin capa de montañas). */
+.pista-arcade {
+  position: relative;
+  height: 110px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 3px solid var(--pink-2);
+  transition: background 0.3s ease;
 }
-.pista-arcade.terreno-verde .fondo-arcade { background-image: url('assets/montana-verde.png'); }
-.pista-arcade.terreno-nevado .fondo-arcade { background-image: url('assets/montana-nevado.png'); }
-.pista-arcade.terreno-artico .fondo-arcade { background-image: url('assets/montana-arido.png'); }
-@keyframes scroll-fondo {
-  from { background-position-x: 0; }
-  to   { background-position-x: -48px; }
-}
+.pista-arcade.terreno-verde { background: linear-gradient(180deg, #8ecdf0 0%, #cdeeff 65%); }
+.pista-arcade.terreno-nevado { background: linear-gradient(180deg, #bcdcf5 0%, #eef7ff 65%); }
+.pista-arcade.terreno-desertico { background: linear-gradient(180deg, #8fd0e8 0%, #ffe9c2 65%); }
 
 .meta-arcade {
   position: absolute;
@@ -94,22 +85,32 @@
   z-index: 2;
 }
 
-/* Suelo: una sola fila del tile de pasto+tierra arriba (repetida solo
-   horizontalmente) + un relleno sólido del mismo tono de tierra debajo,
-   con scroll continuo (más rápido que el fondo, efecto parallax). */
+/* Suelo: un tile REAL distinto por bioma (pasto/nieve/desierto), una sola
+   fila arriba (repetida solo horizontalmente) + relleno sólido del mismo
+   tono de tierra debajo, con scroll continuo para la sensación de caminata. */
 .suelo-arcade {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   height: 42%;
-  background-color: #c37a5b;
-  background-image: url('assets/terreno-base.png');
   background-repeat: repeat-x;
   background-size: 36px 36px;
   background-position: top;
   image-rendering: pixelated;
   animation: scroll-suelo 1.4s linear infinite;
+}
+.pista-arcade.terreno-verde .suelo-arcade {
+  background-color: #c37a5b;
+  background-image: url('assets/terreno-verde.png');
+}
+.pista-arcade.terreno-nevado .suelo-arcade {
+  background-color: #c37a5b;
+  background-image: url('assets/terreno-nevado.png');
+}
+.pista-arcade.terreno-desertico .suelo-arcade {
+  background-color: #c87e5d;
+  background-image: url('assets/terreno-desertico.png');
 }
 @keyframes scroll-suelo {
   from { background-position-x: 0; }
@@ -193,20 +194,18 @@
   margin-bottom: 6px;
 }
 .opcion-personaje {
-  width: 44px;
-  height: 44px;
+  position: relative;
+  width: 48px;
+  height: 48px;
   margin: 0;
   padding: 0;
   border: 2.5px solid var(--pink-2);
   border-radius: 12px;
-  background-color: #fff;
-  background-repeat: no-repeat;
-  background-size: 100% 200%;
-  background-position: 0% 0%;
-  image-rendering: pixelated;
+  background-color: var(--cream);
+  overflow: hidden;
   cursor: pointer;
   box-shadow: none;
-  transition: all 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 .opcion-personaje:hover {
   border-color: var(--blue-3);
@@ -216,11 +215,32 @@
   border-color: transparent;
   box-shadow: 0 0 0 3px var(--pink-3);
   transform: translateY(-2px);
+}
+
+/* Recorte real de la imagen (no background-position): la ventana visible
+   mide 48x48 con overflow:hidden, y adentro va la imagen completa (48x96,
+   2 cuadros) que se desplaza con "top". Así se evita cualquier ambigüedad
+   de background-size/position que causaba el efecto "espejo". */
+.miniatura-recorte {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.miniatura-recorte img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 96px;
+  image-rendering: pixelated;
+}
+.opcion-personaje.seleccionada .miniatura-recorte img {
   animation: miniatura-caminar 0.6s steps(1) infinite;
 }
 @keyframes miniatura-caminar {
-  0%, 49%   { background-position-y: 0%; }
-  50%, 100% { background-position-y: 100%; }
+  0%, 49%   { top: 0; }
+  50%, 100% { top: -48px; }
 }
 
 /* ---- pregunta y respuesta ---- */

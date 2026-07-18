@@ -201,7 +201,7 @@
   padding: 0;
   border: 2.5px solid var(--pink-2);
   border-radius: 12px;
-  background-color: var(--cream);
+  background: var(--cream);
   overflow: hidden;
   cursor: pointer;
   box-shadow: none;

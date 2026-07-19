@@ -261,8 +261,10 @@
     });
 
     dom.btnSiguiente.disabled = true;
-    dom.btnSiguiente.textContent =
-      estado.indice === estado.preguntas.length - 1 ? "Ver resultados 🏁" : "Siguiente pregunta →";
+    dom.btnSiguiente.innerHTML =
+      estado.indice === estado.preguntas.length - 1
+        ? "Ver resultados" + window.icono("flag")
+        : "Siguiente pregunta" + window.icono("arrow_right");
   }
 
   /* -------- elegir una opción: solo marca selección, no revela nada -------- */

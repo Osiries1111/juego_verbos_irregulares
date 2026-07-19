@@ -129,11 +129,12 @@ function inicializarSelectorModo() {
       dom.bloqueArcadeOpciones.style.display = estado.modo === "arcade" ? "block" : "none";
       dom.bloqueCantidad.style.display = (estado.modo === "estudio" || estado.modo === "arcade") ? "none" : "block";
 
-      let textoBoton = "Comenzar 🌟";
-      if (estado.modo === "estudio") textoBoton = "Ver lista de verbos 📖";
-      if (estado.modo === "arcade") textoBoton = "¡Empezar carrera! 🏁";
-      if (estado.modo === "contexto") textoBoton = "¡Practicar en contexto! 🧩";
-      dom.btnComenzar.textContent = textoBoton;
+      let textoBoton = "Comenzar";
+      let iconoBoton = "play";
+      if (estado.modo === "estudio") { textoBoton = "Ver lista de verbos"; iconoBoton = "book_open"; }
+      if (estado.modo === "arcade") { textoBoton = "¡Empezar carrera!"; iconoBoton = "flag"; }
+      if (estado.modo === "contexto") { textoBoton = "¡Practicar en contexto!"; iconoBoton = "puzzle"; }
+      dom.btnComenzar.innerHTML = textoBoton + window.icono(iconoBoton);
     });
   });
 }
@@ -236,7 +237,7 @@ function inicializarSelectorCantidad() {
    ========================================================= */
 function aplicarTema(oscuro) {
   document.body.classList.toggle("tema-oscuro", oscuro);
-  dom.btnTema.textContent = oscuro ? "☀️" : "🌙";
+  dom.btnTema.innerHTML = window.icono(oscuro ? "sun" : "moon");
   dom.btnTema.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
   try {
     localStorage.setItem("verbosTemaOscuro", oscuro ? "1" : "0");

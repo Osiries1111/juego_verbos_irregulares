@@ -110,7 +110,9 @@
 
   /* -------- HUD -------- */
   function actualizarVidas() {
-    dom.vidas.textContent = "❤️".repeat(estado.vidas) + "🤍".repeat(estado.vidasMax - estado.vidas);
+    const llenos = window.icono("heart", "corazon-lleno").repeat(estado.vidas);
+    const vacios = window.icono("heart", "corazon-vacio").repeat(estado.vidasMax - estado.vidas);
+    dom.vidas.innerHTML = llenos + vacios;
   }
 
   function actualizarPuntaje() {
@@ -303,11 +305,11 @@
     if (gano) {
       dom.personaje.classList.remove("tropieza", "corriendo", "saltando");
       dom.personaje.classList.add("celebrando");
-      dom.finalEmoji.textContent = "🏆";
+      dom.finalEmoji.innerHTML = window.icono("trophy");
       dom.finalMensaje.textContent = "¡Llegaste a la meta!";
     } else {
       dom.personaje.classList.remove("corriendo", "celebrando", "saltando");
-      dom.finalEmoji.textContent = "💔";
+      dom.finalEmoji.innerHTML = window.icono("heart_crack");
       dom.finalMensaje.textContent = "Te quedaste sin vidas";
     }
 

@@ -15,6 +15,21 @@
 .arcade-vidas {
   font-size: 1.3rem;
   letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.arcade-vidas .corazon-lleno {
+  width: 1.1em;
+  height: 1.1em;
+  color: #ff5c7a;
+  fill: #ff5c7a;
+}
+.arcade-vidas .corazon-vacio {
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--pink-2);
+  fill: none;
 }
 .arcade-puntaje {
   font-family: 'Baloo 2', sans-serif;

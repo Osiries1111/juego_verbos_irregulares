@@ -435,9 +435,13 @@ h1 {
 .feedback-fila.mal { color: #c94848; }
 
 /* ---- modo estudiar ---- */
+.buscador-estudio-envoltorio {
+  position: relative;
+  margin-bottom: 16px;
+}
 .buscador-estudio {
   width: 100%;
-  padding: 12px 18px;
+  padding: 12px 42px 12px 18px;
   font-size: 0.95rem;
   font-family: 'Quicksand', sans-serif;
   font-weight: 600;
@@ -447,8 +451,18 @@ h1 {
   outline: none;
   background: #fff;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.icono-buscador {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--plum-soft);
+  pointer-events: none;
 }
 .buscador-estudio::placeholder { color: #cbb8d6; font-weight: 500; }
 .buscador-estudio:focus {
@@ -502,7 +516,10 @@ h1 {
 
 /* ---- botones ---- */
 button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin: 18px auto 0;
   padding: 12px 34px;
   font-family: 'Baloo 2', sans-serif;
@@ -516,6 +533,14 @@ button {
   box-shadow: 0 8px 18px -4px rgba(255, 143, 177, 0.55);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.icono-lucide {
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+}
+[data-dificultad="facil"] .icono-lucide { color: #2f9e63; }
+[data-dificultad="medio"] .icono-lucide { color: #d99a2b; }
+[data-dificultad="dificil"] .icono-lucide { color: #e05656; }
 button:hover {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 12px 22px -4px rgba(142, 197, 252, 0.6);

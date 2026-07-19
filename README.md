@@ -1,7 +1,7 @@
 # Juego Verbos Irregulares
 
 ## Por qué?
-Porque necesitaba repasar los verbos para un examen XD
+Porque necesitaba repasar los verbos y también para poder ayudar a otros a aprendeserlos.
 
 ## Cómo funciona ?
 

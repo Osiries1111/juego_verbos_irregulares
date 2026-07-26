@@ -130,7 +130,7 @@
     generarPreguntas();
 
     if (!estado.preguntas.length) {
-      dom.oracion.textContent = "No se pudieron generar preguntas con estos verbos 😢";
+      dom.oracion.innerHTML = "No se pudieron generar preguntas con estos verbos " + window.icono("frown");
       dom.opciones.innerHTML = "";
       dom.btnSiguiente.style.display = "none";
       return;
@@ -255,6 +255,7 @@
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "opcion-contexto";
+      btn.setAttribute("aria-pressed", "false");
       btn.textContent = valor;
       btn.addEventListener("click", () => elegirOpcion(valor, btn));
       dom.opciones.appendChild(btn);
@@ -272,7 +273,9 @@
     estado.seleccionActual = valor;
 
     Array.from(dom.opciones.children).forEach(btn => {
-      btn.classList.toggle("seleccionada", btn === botonElegido);
+      const elegido = btn === botonElegido;
+      btn.classList.toggle("seleccionada", elegido);
+      btn.setAttribute("aria-pressed", elegido ? "true" : "false");
     });
 
     dom.btnSiguiente.disabled = false;
@@ -307,9 +310,9 @@
     dom.final.style.display = "block";
 
     const total = estado.preguntas.length;
-    dom.finalMensaje.textContent =
+    dom.finalMensaje.innerHTML =
       estado.puntaje === total
-        ? `¡Perfecto! ${estado.puntaje} de ${total} 🏆`
+        ? `¡Perfecto! ${estado.puntaje} de ${total} ${window.icono("trophy")}`
         : `Obtuviste ${estado.puntaje} de ${total} correctas`;
 
     renderizarResumen();
@@ -322,7 +325,7 @@
     estado.historial.forEach(item => {
       const li = document.createElement("li");
       const pistaHtml = item.pista
-        ? `<span class="pista-texto">💡 ${item.pista}</span>`
+        ? `<span class="pista-texto"><img src="assets/emoji/bombilla.svg" alt="" class="emoji-fluent emoji-fluent-inline" /> ${item.pista}</span>`
         : "";
 
       if (item.acierto) {
@@ -337,10 +340,10 @@
     });
 
     if (!dom.listaCorrectas.children.length) {
-      dom.listaCorrectas.innerHTML = `<li class="item-resumen mal" style="text-align:center;">Ninguna esta vez, ¡la próxima será! 🌱</li>`;
+      dom.listaCorrectas.innerHTML = `<li class="item-resumen mal" style="text-align:center;">Ninguna esta vez, ¡la próxima será! ${window.icono("sprout")}</li>`;
     }
     if (!dom.listaIncorrectas.children.length) {
-      dom.listaIncorrectas.innerHTML = `<li class="item-resumen ok" style="text-align:center;">¡Ninguna! Todo perfecto ✨</li>`;
+      dom.listaIncorrectas.innerHTML = `<li class="item-resumen ok" style="text-align:center;">¡Ninguna! Todo perfecto ${window.icono("sparkles")}</li>`;
     }
   }
 

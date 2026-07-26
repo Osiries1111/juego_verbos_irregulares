@@ -73,19 +73,34 @@ body {
 /* ---- decoraciones flotantes ---- */
 .deco {
   position: fixed;
-  font-size: 28px;
+  width: 28px;
+  height: 28px;
   opacity: 0.55;
   pointer-events: none;
   animation: float 7s ease-in-out infinite;
   filter: drop-shadow(0 4px 8px rgba(255, 182, 208, 0.35));
   z-index: 0;
 }
-.deco.d1 { top: 8%;  left: 6%;  font-size: 34px; animation-delay: 0s; }
-.deco.d2 { top: 18%; right: 8%; font-size: 26px; animation-delay: 1.2s; }
-.deco.d3 { bottom: 12%; left: 10%; font-size: 30px; animation-delay: 2.4s; }
-.deco.d4 { bottom: 20%; right: 12%; font-size: 24px; animation-delay: 3.1s; }
-.deco.d5 { top: 48%; left: 3%; font-size: 20px; animation-delay: 1.7s; }
-.deco.d6 { top: 55%; right: 4%; font-size: 22px; animation-delay: 0.6s; }
+.deco.d1 { top: 8%;  left: 6%;  width: 34px; height: 34px; animation-delay: 0s; }
+.deco.d2 { top: 18%; right: 8%; width: 26px; height: 26px; animation-delay: 1.2s; }
+.deco.d3 { bottom: 12%; left: 10%; width: 30px; height: 30px; animation-delay: 2.4s; }
+.deco.d4 { bottom: 20%; right: 12%; width: 24px; height: 24px; animation-delay: 3.1s; }
+.deco.d5 { top: 48%; left: 3%; width: 20px; height: 20px; animation-delay: 1.7s; }
+.deco.d6 { top: 55%; right: 4%; width: 22px; height: 22px; animation-delay: 0.6s; }
+
+/* Emoji Fluent (Microsoft, licencia MIT): imágenes reales en vez de emoji de
+   texto, para que se vean idénticas sin importar el dispositivo/SO. */
+.emoji-fluent {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.25em;
+}
+.emoji-fluent-inline {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+}
 
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -729,6 +744,18 @@ body.tema-oscuro .tabla-estudio tbody tr:nth-child(even) { background: var(--blu
 @media (min-width: 700px) {
   .tabla-estudio-contenedor {
     max-height: 420px;
+  }
+
+  /* Botones "Jugar de nuevo" / "Volver al menú": en mobile quedan apilados,
+     pero en desktop hay espacio de sobra para ponerlos en fila. */
+  .botones-final-pareja {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+  .botones-final-pareja button {
+    margin-top: 18px;
+    flex: 0 1 auto;
   }
 
   /* La tarjeta se ensancha SOLO en modo estudio, para que las 4 columnas

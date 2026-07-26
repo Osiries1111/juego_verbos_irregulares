@@ -14,7 +14,7 @@
 <body>
 
   <div class="barra-superior">
-    <a class="btn-flotante" id="linkGithub" href="https://github.com/Osiries1111" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub" title="Ver en GitHub">
+    <a class="btn-flotante" id="linkGithub" href="https://github.com/" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub" title="Ver en GitHub">
       <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
         0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
@@ -28,52 +28,52 @@
     <button type="button" class="btn-flotante" id="btnTema" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg></button>
   </div>
 
-  <span class="deco d1">🌸</span>
-  <span class="deco d2">☁️</span>
-  <span class="deco d3">✨</span>
-  <span class="deco d4">🩵</span>
-  <span class="deco d5">💗</span>
-  <span class="deco d6">⭐</span>
+  <img src="assets/emoji/flor.svg" alt="" class="deco d1 emoji-fluent" />
+  <img src="assets/emoji/nube.svg" alt="" class="deco d2 emoji-fluent" />
+  <img src="assets/emoji/destellos.svg" alt="" class="deco d3 emoji-fluent" />
+  <img src="assets/emoji/corazon-celeste.svg" alt="" class="deco d4 emoji-fluent" />
+  <img src="assets/emoji/corazon-rosado.svg" alt="" class="deco d5 emoji-fluent" />
+  <img src="assets/emoji/estrella.svg" alt="" class="deco d6 emoji-fluent" />
 
   <div class="tarjeta">
     <h1>Juego de Verbos Irregulares</h1>
-    <p class="subtitulo">¡Completa la forma correcta del verbo! 🐰</p>
+    <p class="subtitulo">¡Completa la forma correcta del verbo! <img src="assets/emoji/conejo.svg" alt="" class="emoji-fluent" /></p>
 
     <!-- ============ CONFIGURACIÓN ============ -->
     <div id="config">
 
       <div class="campo-config">
         <label>¿Qué modo quieres jugar?</label>
-        <div class="opciones-modo" id="opcionesModo">
-          <button type="button" class="opcion-modo seleccionada" data-modo="quiz">Quiz rápido<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg></button>
-          <button type="button" class="opcion-modo" data-modo="fila">Completar fila<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M21 9H3" /><path d="M21 15H3" /></svg></button>
-          <button type="button" class="opcion-modo" data-modo="estudio">Estudiar<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg></button>
-          <button type="button" class="opcion-modo" data-modo="arcade">Modo Arcade<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" x2="10" y1="11" y2="11" /><line x1="8" x2="8" y1="9" y2="13" /><line x1="15" x2="15.01" y1="12" y2="12" /><line x1="18" x2="18.01" y1="10" y2="10" /><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" /></svg></button>
-          <button type="button" class="opcion-modo" data-modo="contexto">En Contexto<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z" /></svg></button>
+        <div class="opciones-modo" id="opcionesModo" role="group" aria-label="Modo de juego">
+          <button type="button" class="opcion-modo" aria-pressed="false" data-modo="estudio">Estudiar<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg></button>
+          <button type="button" class="opcion-modo seleccionada" aria-pressed="true" data-modo="quiz">Quiz rápido<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg></button>
+          <button type="button" class="opcion-modo" aria-pressed="false" data-modo="fila">Completar fila<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M21 9H3" /><path d="M21 15H3" /></svg></button>
+          <button type="button" class="opcion-modo" aria-pressed="false" data-modo="contexto">En Contexto<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z" /></svg></button>
+          <button type="button" class="opcion-modo" aria-pressed="false" data-modo="arcade">Modo Arcade<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" x2="10" y1="11" y2="11" /><line x1="8" x2="8" y1="9" y2="13" /><line x1="15" x2="15.01" y1="12" y2="12" /><line x1="18" x2="18.01" y1="10" y2="10" /><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" /></svg></button>
         </div>
       </div>
 
       <!-- Quiz rápido: elegir columnas a practicar (multi-select) -->
       <div class="campo-config" id="bloqueColumnasQuiz">
         <label>¿Qué quieres practicar escribir?</label>
-        <div class="opciones-columnas" id="opcionesColumnasQuiz">
-          <button type="button" class="opcion-columna" data-col="0">Infinitive</button>
-          <button type="button" class="opcion-columna" data-col="1">Simple Past</button>
-          <button type="button" class="opcion-columna" data-col="2">Past Participle</button>
-          <button type="button" class="opcion-columna" data-col="3">Castellano</button>
+        <div class="opciones-columnas" id="opcionesColumnasQuiz" role="group" aria-label="Columnas a practicar">
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="0">Infinitive</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="1">Simple Past</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="2">Past Participle</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="3">Castellano</button>
         </div>
         <span class="ayuda-config">Elige una o más — la pista saldrá al azar entre las otras columnas</span>
-        <span class="aviso-error" id="avisoColumnasQuiz">Elige al menos una columna para poder comenzar 🌸</span>
+        <span class="aviso-error" id="avisoColumnasQuiz">Elige al menos una columna para poder comenzar</span>
       </div>
 
       <!-- Completar fila: elegir la columna que ya se sabe (single-select) -->
       <div class="campo-config" id="bloqueColumnaFila" style="display:none;">
         <label>¿Qué columna ya te sabes?</label>
-        <div class="opciones-columnas" id="opcionesColumnaFila">
-          <button type="button" class="opcion-columna seleccionada" data-col="0">Infinitive</button>
-          <button type="button" class="opcion-columna" data-col="1">Simple Past</button>
-          <button type="button" class="opcion-columna" data-col="2">Past Participle</button>
-          <button type="button" class="opcion-columna" data-col="3">Castellano</button>
+        <div class="opciones-columnas" id="opcionesColumnaFila" role="group" aria-label="Columna que ya sabes">
+          <button type="button" class="opcion-columna seleccionada" aria-pressed="true" data-col="0">Infinitive</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="1">Simple Past</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="2">Past Participle</button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-col="3">Castellano</button>
         </div>
         <span class="ayuda-config">Se te mostrará esa columna y completarás las otras 3</span>
       </div>
@@ -81,61 +81,62 @@
       <!-- Modo Arcade: dificultad y vidas -->
       <div class="campo-config" id="bloqueArcadeOpciones" style="display:none;">
         <label>Dificultad</label>
-        <div class="opciones-columnas" id="opcionesDificultad">
-          <button type="button" class="opcion-columna" data-dificultad="facil">Fácil<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /></svg></button>
-          <button type="button" class="opcion-columna seleccionada" data-dificultad="medio">Medio<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /><path d="M12 20v-8" /></svg></button>
-          <button type="button" class="opcion-columna" data-dificultad="dificil">Difícil<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /><path d="M12 20v-8" /><path d="M17 20V8" /></svg></button>
+        <div class="opciones-columnas" id="opcionesDificultad" role="group" aria-label="Dificultad">
+          <button type="button" class="opcion-columna" aria-pressed="false" data-dificultad="facil">Fácil<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /></svg></button>
+          <button type="button" class="opcion-columna seleccionada" aria-pressed="true" data-dificultad="medio">Medio<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /><path d="M12 20v-8" /></svg></button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-dificultad="dificil">Difícil<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h.01" /><path d="M7 20v-4" /><path d="M12 20v-8" /><path d="M17 20V8" /></svg></button>
         </div>
         <span class="ayuda-config">Cambia el tiempo por palabra, qué formas se preguntan y qué tan larga es la carrera</span>
 
         <label style="margin-top: 18px;">¿Cuántas vidas quieres? (máx. 5)</label>
-        <div class="opciones-cantidad" id="opcionesVidas">
-          <button type="button" class="opcion-cantidad" data-valor="1">1</button>
-          <button type="button" class="opcion-cantidad" data-valor="2">2</button>
-          <button type="button" class="opcion-cantidad seleccionada" data-valor="3">3</button>
-          <button type="button" class="opcion-cantidad" data-valor="4">4</button>
-          <button type="button" class="opcion-cantidad" data-valor="5">5</button>
+        <div class="opciones-cantidad" id="opcionesVidas" role="group" aria-label="Cantidad de vidas">
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="1">1</button>
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="2">2</button>
+          <button type="button" class="opcion-cantidad seleccionada" aria-pressed="true" data-valor="3">3</button>
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="4">4</button>
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="5">5</button>
         </div>
 
         <label style="margin-top: 18px;">Elige tu personaje</label>
-        <div class="opciones-personaje" id="opcionesPersonaje">
-          <button type="button" class="opcion-personaje seleccionada" data-personaje="1" aria-label="Personaje 1">
+        <div class="opciones-personaje" id="opcionesPersonaje" role="group" aria-label="Elegir personaje">
+          <button type="button" class="opcion-personaje seleccionada" aria-pressed="true" data-personaje="1" aria-label="Personaje 1">
             <span class="miniatura-recorte"><img src="assets/personajes/personaje_1.png" alt="" /></span>
           </button>
-          <button type="button" class="opcion-personaje" data-personaje="2" aria-label="Personaje 2">
+          <button type="button" class="opcion-personaje" aria-pressed="false" data-personaje="2" aria-label="Personaje 2">
             <span class="miniatura-recorte"><img src="assets/personajes/personaje_2.png" alt="" /></span>
           </button>
-          <button type="button" class="opcion-personaje" data-personaje="3" aria-label="Personaje 3">
+          <button type="button" class="opcion-personaje" aria-pressed="false" data-personaje="3" aria-label="Personaje 3">
             <span class="miniatura-recorte"><img src="assets/personajes/personaje_3.png" alt="" /></span>
           </button>
-          <button type="button" class="opcion-personaje" data-personaje="4" aria-label="Personaje 4">
+          <button type="button" class="opcion-personaje" aria-pressed="false" data-personaje="4" aria-label="Personaje 4">
             <span class="miniatura-recorte"><img src="assets/personajes/personaje_4.png" alt="" /></span>
           </button>
-          <button type="button" class="opcion-personaje" data-personaje="5" aria-label="Personaje 5">
+          <button type="button" class="opcion-personaje" aria-pressed="false" data-personaje="5" aria-label="Personaje 5">
             <span class="miniatura-recorte"><img src="assets/personajes/personaje_5.png" alt="" /></span>
           </button>
         </div>
 
         <label style="margin-top: 18px;">Elige el terreno</label>
-        <div class="opciones-columnas" id="opcionesTerreno">
-          <button type="button" class="opcion-columna seleccionada" data-terreno="verde">Green<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg></button>
-          <button type="button" class="opcion-columna" data-terreno="nevado">Snowy<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 20-1.25-2.5L6 18" /><path d="M10 4 8.75 6.5 6 6" /><path d="m14 20 1.25-2.5L18 18" /><path d="m14 4 1.25 2.5L18 6" /><path d="m17 21-3-6h-4" /><path d="m17 3-3 6 1.5 3" /><path d="M2 12h6.5L10 9" /><path d="m20 10-1.5 2 1.5 2" /><path d="M22 12h-6.5L14 15" /><path d="m4 10 1.5 2L4 14" /><path d="m7 21 3-6-1.5-3" /><path d="m7 3 3 6h4" /></svg></button>
-          <button type="button" class="opcion-columna" data-terreno="desertico">Desert<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 8a4 4 0 0 0-1.645 7.647" /><path d="M2 12h2" /><path d="M20 14.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" /><path d="m4.93 4.93 1.41 1.41" /><path d="m6.34 17.66-1.41 1.41" /></svg></button>
+        <div class="opciones-columnas" id="opcionesTerreno" role="group" aria-label="Terreno">
+          <button type="button" class="opcion-columna seleccionada" aria-pressed="true" data-terreno="verde">Green<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg></button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-terreno="nevado">Snowy<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 20-1.25-2.5L6 18" /><path d="M10 4 8.75 6.5 6 6" /><path d="m14 20 1.25-2.5L18 18" /><path d="m14 4 1.25 2.5L18 6" /><path d="m17 21-3-6h-4" /><path d="m17 3-3 6 1.5 3" /><path d="M2 12h6.5L10 9" /><path d="m20 10-1.5 2 1.5 2" /><path d="M22 12h-6.5L14 15" /><path d="m4 10 1.5 2L4 14" /><path d="m7 21 3-6-1.5-3" /><path d="m7 3 3 6h4" /></svg></button>
+          <button type="button" class="opcion-columna" aria-pressed="false" data-terreno="desertico">Desert<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 8a4 4 0 0 0-1.645 7.647" /><path d="M2 12h2" /><path d="M20 14.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" /><path d="m4.93 4.93 1.41 1.41" /><path d="m6.34 17.66-1.41 1.41" /></svg></button>
         </div>
       </div>
 
       <div class="campo-config" id="bloqueCantidad">
         <label>¿Cuántos verbos quieres practicar?</label>
-        <div class="opciones-cantidad" id="opcionesCantidad">
-          <button type="button" class="opcion-cantidad" data-valor="5">5</button>
-          <button type="button" class="opcion-cantidad seleccionada" data-valor="10">10</button>
-          <button type="button" class="opcion-cantidad" data-valor="15">15</button>
-          <button type="button" class="opcion-cantidad" data-valor="20">20</button>
+        <div class="opciones-cantidad" id="opcionesCantidad" role="group" aria-label="Cantidad de verbos">
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="5">5</button>
+          <button type="button" class="opcion-cantidad seleccionada" aria-pressed="true" data-valor="10">10</button>
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="15">15</button>
+          <button type="button" class="opcion-cantidad" aria-pressed="false" data-valor="20">20</button>
         </div>
         <div class="cantidad-personalizada">
           <span>u otra cantidad:</span>
-          <input type="number" id="cantidadPersonalizada" min="1" max="50" placeholder="Ej: 8" />
+          <input type="number" id="cantidadPersonalizada" min="1" max="100" placeholder="Ej: 8" aria-describedby="avisoLimiteRondas" />
         </div>
+        <span class="aviso-error" id="avisoLimiteRondas">Máximo 100 rondas — con más, la página puede volverse lenta</span>
       </div>
 
       <button id="btnComenzar">Comenzar<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></svg></button>
@@ -145,9 +146,9 @@
     <div id="juegoQuiz" style="display: none;">
       <div id="progresoQuiz" class="barra-progreso"></div>
       <p id="pregunta"></p>
-      <input type="text" id="respuesta" placeholder="Tu respuesta aquí" autocomplete="off" />
+      <input type="text" id="respuesta" placeholder="Tu respuesta aquí" aria-label="Tu respuesta" autocomplete="off" />
       <button id="btnVerificar">Verificar<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></button>
-      <div id="resultado"></div>
+      <div id="resultado" aria-live="polite"></div>
     </div>
 
     <!-- ============ MODO COMPLETAR FILA ============ -->
@@ -162,13 +163,13 @@
       <div class="campos-fila" id="camposFila"></div>
 
       <button id="btnVerificarFila">Verificar fila<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></button>
-      <div id="resultadoFila"></div>
+      <div id="resultadoFila" aria-live="polite"></div>
     </div>
 
     <!-- ============ MODO ESTUDIAR ============ -->
     <div id="estudio" style="display: none;">
       <div class="buscador-estudio-envoltorio">
-        <input type="text" id="buscadorEstudio" class="buscador-estudio" placeholder="Buscar un verbo..." autocomplete="off" />
+        <input type="text" id="buscadorEstudio" class="buscador-estudio" placeholder="Buscar un verbo..." aria-label="Buscar un verbo" autocomplete="off" />
         <svg class="icono-lucide icono-buscador" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg>
       </div>
       <div class="tabla-estudio-contenedor">
@@ -180,7 +181,8 @@
         </table>
       </div>
       <p class="ayuda-config" style="text-align:center; margin-top: 14px;">
-        Cuando te sientas list@, vuelve y elige "Quiz rápido" o "Completar fila" para ponerte a prueba 🌟
+        Cuando te sientas list@, vuelve y elige "Quiz rápido" o "Completar fila" para ponerte a prueba
+        <svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></svg>
       </p>
       <button id="btnVolverEstudio">Volver a elegir modo<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></button>
     </div>
@@ -190,7 +192,7 @@
       <div id="arcadeJuegoWrap">
         <div class="arcade-hud">
           <div class="arcade-vidas" id="arcadeVidas"></div>
-          <div class="arcade-puntaje">⭐ <span id="arcadePuntaje">0</span></div>
+          <div class="arcade-puntaje"><svg class="icono-lucide" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg> <span id="arcadePuntaje">0</span></div>
         </div>
 
         <div class="arcade-timer-contenedor">
@@ -204,18 +206,20 @@
         </div>
 
         <p id="arcadePregunta" class="arcade-pregunta"></p>
-        <input type="text" id="arcadeRespuesta" placeholder="Escribe rápido..." autocomplete="off" />
+        <input type="text" id="arcadeRespuesta" placeholder="Escribe rápido..." aria-label="Tu respuesta" autocomplete="off" />
         <button id="arcadeBtnVerificar">¡Responder!<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></svg></button>
-        <div id="arcadeResultado"></div>
+        <div id="arcadeResultado" aria-live="polite"></div>
       </div>
 
       <div id="arcadeFinal" style="display: none;">
         <span class="emoji-final" id="arcadeFinalEmoji"><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978" /><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978" /><path d="M18 9h1.5a1 1 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /><path d="M6 9H4.5a1 1 0 0 1 0-5H6" /></svg></span>
         <h2 id="arcadeFinalMensaje"></h2>
         <p id="arcadeFinalDetalle" class="ayuda-config" style="text-align:center;"></p>
-        <button id="arcadeBtnReintentar">Jugar de nuevo<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg></button>
-        <button id="arcadeBtnMenu">Volver al menú<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></button>
-      </div>
+        <div class="botones-final-pareja">
+          <button id="arcadeBtnReintentar">Jugar de nuevo<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg></button>
+          <button id="arcadeBtnMenu">Volver al menú<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></button>
+        </div>
+        </div>
     </div>
 
     <!-- ============ MODO EN CONTEXTO ============ -->
@@ -225,7 +229,7 @@
 
         <p id="contextoOracion" class="contexto-oracion"></p>
 
-        <div class="contexto-opciones" id="contextoOpciones"></div>
+        <div class="contexto-opciones" id="contextoOpciones" role="group" aria-label="Opciones de respuesta"></div>
 
         <button id="contextoBtnSiguiente" disabled>Siguiente pregunta<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
       </div>
@@ -235,14 +239,16 @@
         <h2 id="contextoFinalMensaje"></h2>
 
         <div class="resumen">
-          <h3>✅ Respuestas correctas</h3>
+          <h3><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg> Respuestas correctas</h3>
           <ul class="lista-resumen" id="contextoListaCorrectas"></ul>
-          <h3>❌ Respuestas incorrectas</h3>
+          <h3><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg> Respuestas incorrectas</h3>
           <ul class="lista-resumen" id="contextoListaIncorrectas"></ul>
         </div>
 
-        <button id="contextoBtnReintentar">Jugar de nuevo<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg></button>
-        <button id="contextoBtnMenu">Volver al menú<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></button>
+        <div class="botones-final-pareja">
+          <button id="contextoBtnReintentar">Jugar de nuevo<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg></button>
+          <button id="contextoBtnMenu">Volver al menú<svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></button>
+        </div>
       </div>
     </div>
 
@@ -252,9 +258,9 @@
       <h2 id="mensaje-final"></h2>
 
       <div class="resumen">
-        <h3>✅ Respuestas correctas</h3>
+        <h3><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg> Respuestas correctas</h3>
         <ul class="lista-resumen" id="listaCorrectas"></ul>
-        <h3>❌ Respuestas incorrectas</h3>
+        <h3><svg class="icono-lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg> Respuestas incorrectas</h3>
         <ul class="lista-resumen" id="listaIncorrectas"></ul>
       </div>
 

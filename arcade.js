@@ -185,7 +185,7 @@
     estado.preguntaActual = { fila, col1, col2, esBonus };
 
     const textoPregunta = `${estado.verbos[0][col1]}: ${estado.verbos[fila][col1]} → ${estado.verbos[0][col2]}: `;
-    dom.pregunta.textContent = (esBonus ? "🌟 BONUS · " : "") + textoPregunta;
+    dom.pregunta.innerHTML = (esBonus ? window.icono("star") + " BONUS · " : "") + textoPregunta;
     dom.pregunta.classList.toggle("bonus", esBonus);
 
     dom.respuesta.value = "";
@@ -247,14 +247,14 @@
       if (esBonus) {
         if (estado.vidas < estado.vidasMax) {
           estado.vidas++;
-          dom.resultado.textContent = `🌟 ¡Bonus! +${puntos} pts y +1 vida`;
+            dom.resultado.innerHTML = window.icono("star") + ` ¡Bonus! +${puntos} pts y +1 vida`;
         } else {
           estado.puntaje += PUNTOS_EXTRA_VIDA_LLENA;
-          dom.resultado.textContent = `🌟 ¡Bonus! +${puntos + PUNTOS_EXTRA_VIDA_LLENA} pts (vidas al máximo)`;
+            dom.resultado.innerHTML = window.icono("star") + ` ¡Bonus! +${puntos + PUNTOS_EXTRA_VIDA_LLENA} pts (vidas al máximo)`;
         }
         dom.resultado.className = "bonus";
       } else {
-        dom.resultado.textContent = `✅ ¡Correcto! +${puntos} pts`;
+        dom.resultado.innerHTML = window.icono("check") + ` ¡Correcto! +${puntos} pts`;
         dom.resultado.className = "correcto";
       }
 
@@ -279,9 +279,9 @@
       } else {
         estado.vidas--;
         actualizarVidas();
-        dom.resultado.textContent = valorRespuesta.trim() === ""
-          ? `⏰ ¡Se acabó el tiempo! Era: ${estado.verbos[fila][col2]}`
-          : `❌ Incorrecto. Era: ${estado.verbos[fila][col2]}`;
+        dom.resultado.innerHTML = valorRespuesta.trim() === ""
+          ? window.icono("clock") + ` ¡Se acabó el tiempo! Era: ${estado.verbos[fila][col2]}`
+          : window.icono("x") + ` Incorrecto. Era: ${estado.verbos[fila][col2]}`;
         dom.resultado.className = "incorrecto";
 
         if (estado.vidas <= 0) {

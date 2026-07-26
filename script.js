@@ -14,6 +14,16 @@ function respuestaCoincide(respuestaUsuario, respuestaEsperada) {
   return opciones.includes(respuestaUsuario.trim().toLowerCase());
 }
 
+/* Marca un botón como seleccionado (visual + aria-pressed para lectores de
+   pantalla) dentro de un grupo de selección única, desmarcando los demás. */
+function marcarSeleccionUnica(lista, btnElegido) {
+  lista.forEach(b => {
+    const elegido = b === btnElegido;
+    b.classList.toggle("seleccionada", elegido);
+    b.setAttribute("aria-pressed", elegido ? "true" : "false");
+  });
+}
+
 /* =========================================================
    ESTADO DEL JUEGO
    ========================================================= */
@@ -59,6 +69,7 @@ const dom = {
   opcionesCantidad: document.querySelectorAll("#opcionesCantidad .opcion-cantidad"),
   bloqueCantidad: document.getElementById("bloqueCantidad"),
   cantidadPersonalizada: document.getElementById("cantidadPersonalizada"),
+  avisoLimiteRondas: document.getElementById("avisoLimiteRondas"),
   btnComenzar: document.getElementById("btnComenzar"),
 
   // modo arcade (configuración; la pantalla de juego vive en arcade.js)
@@ -120,8 +131,7 @@ function cargarVerbos() {
 function inicializarSelectorModo() {
   dom.opcionesModo.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesModo.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesModo, btn);
       estado.modo = btn.dataset.modo;
 
       dom.bloqueColumnasQuiz.style.display = estado.modo === "quiz" ? "block" : "none";
@@ -145,32 +155,28 @@ function inicializarSelectorModo() {
 function inicializarSelectorArcade() {
   dom.opcionesDificultad.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesDificultad.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesDificultad, btn);
       estado.dificultadArcade = btn.dataset.dificultad;
     });
   });
 
   dom.opcionesVidas.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesVidas.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesVidas, btn);
       estado.vidasArcade = parseInt(btn.dataset.valor, 10);
     });
   });
 
   dom.opcionesPersonaje.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesPersonaje.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesPersonaje, btn);
       estado.personajeArcade = btn.dataset.personaje;
     });
   });
 
   dom.opcionesTerreno.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesTerreno.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesTerreno, btn);
       estado.terrenoArcade = btn.dataset.terreno;
     });
   });
@@ -189,9 +195,11 @@ function inicializarSelectorColumnas() {
       if (yaSeleccionada) {
         estado.columnasQuizSeleccionadas.delete(col);
         btn.classList.remove("seleccionada");
+        btn.setAttribute("aria-pressed", "false");
       } else {
         estado.columnasQuizSeleccionadas.add(col);
         btn.classList.add("seleccionada");
+        btn.setAttribute("aria-pressed", "true");
       }
 
       if (estado.columnasQuizSeleccionadas.size > 0) {
@@ -203,8 +211,7 @@ function inicializarSelectorColumnas() {
   // Fila: single-select
   dom.opcionesColumnaFila.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesColumnaFila.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesColumnaFila, btn);
       estado.columnaFilaConocida = parseInt(btn.dataset.col, 10);
     });
   });
@@ -216,17 +223,28 @@ function inicializarSelectorColumnas() {
 function inicializarSelectorCantidad() {
   dom.opcionesCantidad.forEach(btn => {
     btn.addEventListener("click", () => {
-      dom.opcionesCantidad.forEach(b => b.classList.remove("seleccionada"));
-      btn.classList.add("seleccionada");
+      marcarSeleccionUnica(dom.opcionesCantidad, btn);
       estado.cantidadElegida = parseInt(btn.dataset.valor, 10);
       dom.cantidadPersonalizada.value = "";
     });
   });
 
+  const MAXIMO_RONDAS = 100;
+
   dom.cantidadPersonalizada.addEventListener("input", (e) => {
-    const val = parseInt(e.target.value, 10);
+    let val = parseInt(e.target.value, 10);
+    if (val > MAXIMO_RONDAS) {
+      val = MAXIMO_RONDAS;
+      e.target.value = MAXIMO_RONDAS;
+      dom.avisoLimiteRondas.classList.add("mostrar");
+    } else {
+      dom.avisoLimiteRondas.classList.remove("mostrar");
+    }
     if (val > 0) {
-      dom.opcionesCantidad.forEach(b => b.classList.remove("seleccionada"));
+      dom.opcionesCantidad.forEach(b => {
+        b.classList.remove("seleccionada");
+        b.setAttribute("aria-pressed", "false");
+      });
       estado.cantidadElegida = val;
     }
   });
@@ -278,7 +296,7 @@ function comenzarJuego() {
   }
 
   const personalizada = parseInt(dom.cantidadPersonalizada.value, 10);
-  estado.totalPartidas = personalizada > 0 ? personalizada : estado.cantidadElegida;
+  estado.totalPartidas = Math.min(personalizada > 0 ? personalizada : estado.cantidadElegida, 100);
 
   if (!estado.verbos.length) {
     // por si el fetch aún no termina, esperamos un poquito
@@ -363,7 +381,7 @@ function renderizarFilasEstudio(filas) {
   if (!filas.length) {
     dom.cuerpoEstudio.innerHTML = `
       <tr class="sin-resultados">
-        <td colspan="${estado.verbos[0].length}">No se encontró ningún verbo 🌸</td>
+        <td colspan="${estado.verbos[0].length}">No se encontró ningún verbo</td>
       </tr>`;
     return;
   }
@@ -441,10 +459,10 @@ function verificar() {
 
   if (acierto) {
     estado.puntaje++;
-    dom.resultado.textContent = "✅ ¡Correcto!";
+    dom.resultado.innerHTML = window.icono("check") + " ¡Correcto!";
     dom.resultado.className = "correcto";
   } else {
-    dom.resultado.textContent = `❌ Incorrecto. La respuesta correcta era: ${estado.verbos[fila][col2]}`;
+    dom.resultado.innerHTML = window.icono("x") + ` Incorrecto. La respuesta correcta era: ${estado.verbos[fila][col2]}`;
     dom.resultado.className = "incorrecto";
   }
 
@@ -515,10 +533,10 @@ function verificarFila() {
 
     if (acierto) {
       aciertosEnFila++;
-      feedback.textContent = "✅ Correcto";
+      feedback.innerHTML = window.icono("check") + " Correcto";
       feedback.className = "feedback-fila ok";
     } else {
-      feedback.textContent = `❌ Era: ${estado.verbos[fila][col]}`;
+      feedback.innerHTML = window.icono("x") + ` Era: ${estado.verbos[fila][col]}`;
       feedback.className = "feedback-fila mal";
     }
 
@@ -533,10 +551,10 @@ function verificarFila() {
   estado.puntaje += aciertosEnFila;
 
   if (aciertosEnFila === colsAPreguntar.length) {
-    dom.resultadoFila.textContent = "✅ ¡Fila completa correcta!";
+    dom.resultadoFila.innerHTML = window.icono("check") + " ¡Fila completa correcta!";
     dom.resultadoFila.className = "correcto";
   } else if (aciertosEnFila === 0) {
-    dom.resultadoFila.textContent = "❌ Ninguna coincidió, ¡sigue intentando!";
+    dom.resultadoFila.innerHTML = window.icono("x") + " Ninguna coincidió, ¡sigue intentando!";
     dom.resultadoFila.className = "incorrecto";
   } else {
     dom.resultadoFila.textContent = `Acertaste ${aciertosEnFila} de ${colsAPreguntar.length}`;
@@ -560,9 +578,9 @@ function mostrarFinal() {
   dom.final.style.display = "block";
 
   const mensaje = estado.puntaje === estado.totalCampos
-    ? "¡Ganaste! ¡Sos un pro! 🏆"
+    ? `¡Ganaste! ¡Sos un pro! ${window.icono("trophy")}`
     : `Obtuviste ${estado.puntaje} de ${estado.totalCampos}. ¡Sigue practicando!`;
-  dom.mensajeFinal.textContent = mensaje;
+  dom.mensajeFinal.innerHTML = mensaje;
 
   renderizarResumen();
 }
@@ -585,10 +603,10 @@ function renderizarResumen() {
   });
 
   if (!dom.listaCorrectas.children.length) {
-    dom.listaCorrectas.innerHTML = `<li class="item-resumen mal" style="text-align:center;">Ninguna esta vez, ¡la próxima será! 🌱</li>`;
+    dom.listaCorrectas.innerHTML = `<li class="item-resumen mal" style="text-align:center;">Ninguna esta vez, ¡la próxima será! ${window.icono("sprout")}</li>`;
   }
   if (!dom.listaIncorrectas.children.length) {
-    dom.listaIncorrectas.innerHTML = `<li class="item-resumen ok" style="text-align:center;">¡Ninguna! Todo perfecto ✨</li>`;
+    dom.listaIncorrectas.innerHTML = `<li class="item-resumen ok" style="text-align:center;">¡Ninguna! Todo perfecto ${window.icono("sparkles")}</li>`;
   }
 }
 

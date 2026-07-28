@@ -49,6 +49,19 @@ En ``index.html`` cambia la variable ``totalPartidas`` por el número que desees
 
 - Se hizo uso de la siguiente página para obtener los verbos: https://blog.cambridge.es/listado-de-verbos-irregulares-en-ingles/
 - Se utilizó IA para la realización de la versión online del juego
+
+## Tecnologías utilizadas
+
+- **HTML5, CSS3 y JavaScript "vanilla"** (sin frameworks ni librerías de por medio) para la versión web
+- **[Google Fonts](https://fonts.google.com/)**: tipografías "Baloo 2" y "Quicksand"
+- **Python 3** para el modo por consola
+- `localStorage` para recordar la preferencia de modo oscuro/claro entre visitas
+
+## Créditos de íconos y assets
+
+- **Íconos de interfaz**: [Lucide](https://lucide.dev/) (licencia ISC) — usados en botones, menús y mensajes de resultado
+- **Emoji ilustrados** (el conejito, la bombilla, las decoraciones flotantes de fondo, etc.): [Fluent Emoji de Microsoft](https://github.com/microsoft/fluentui-emoji) (licencia MIT) — se usan como imágenes en vez de emoji de texto para que se vean igual en cualquier dispositivo/sistema operativo
+- **Sprites y arte del Modo Arcade** (personajes, terreno, fondo y obstáculos): pack ["Pixel Platformer" de Kenney](https://kenney.nl/assets/pixel-platformer) (licencia CC0 — de uso libre)
   
 ## Colaboración
 

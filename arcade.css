@@ -32,6 +32,9 @@
   fill: none;
 }
 .arcade-puntaje {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
   font-size: 1.05rem;
@@ -39,6 +42,9 @@
   background: linear-gradient(135deg, var(--pink-1), var(--blue-1));
   padding: 6px 16px;
   border-radius: 999px;
+}
+.arcade-puntaje .icono-lucide {
+  vertical-align: 0;
 }
 
 /* ---- barra de tiempo por palabra ---- */
@@ -300,6 +306,10 @@
 
 /* ---- resultado por pregunta ---- */
 #arcadeResultado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   margin-top: 14px;
   text-align: center;
   font-weight: 700;
@@ -308,6 +318,10 @@
   border-radius: 14px;
   padding: 9px 10px;
   transition: all 0.2s ease;
+}
+#arcadeResultado .icono-lucide {
+  vertical-align: 0;
+  flex-shrink: 0;
 }
 #arcadeResultado:empty { padding: 0; }
 #arcadeResultado.correcto { background: var(--ok-green-bg); color: #2f9e63; }

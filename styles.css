@@ -161,11 +161,20 @@ h1 {
 /* selector de modo (quiz / completar fila) */
 .opciones-modo {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
-  flex-wrap: wrap;
   margin-bottom: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 4px 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to right, transparent 0, black 20px, black calc(100% - 20px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 20px, black calc(100% - 20px), transparent 100%);
 }
+.opciones-modo::-webkit-scrollbar { display: none; }
 .opcion-modo {
   border: 2.5px solid var(--blue-2);
   background: #fff;
@@ -178,6 +187,9 @@ h1 {
   cursor: pointer;
   transition: all 0.15s ease;
   margin: 0;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  white-space: nowrap;
 }
 .opcion-modo:hover {
   border-color: var(--pink-3);
@@ -552,6 +564,7 @@ button {
   width: 1.05em;
   height: 1.05em;
   flex-shrink: 0;
+  vertical-align: -0.2em;
 }
 [data-dificultad="facil"] .icono-lucide { color: #2f9e63; }
 [data-dificultad="medio"] .icono-lucide { color: #d99a2b; }
@@ -568,6 +581,10 @@ button:focus-visible {
 
 /* ---- resultado de cada pregunta (modo quiz) ---- */
 #resultado, #resultadoFila {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   margin-top: 18px;
   text-align: center;
   font-weight: 700;
@@ -576,6 +593,10 @@ button:focus-visible {
   border-radius: 14px;
   padding: 10px 12px;
   transition: all 0.2s ease;
+}
+#resultado .icono-lucide, #resultadoFila .icono-lucide {
+  vertical-align: 0;
+  flex-shrink: 0;
 }
 #resultado:empty, #resultadoFila:empty { padding: 0; }
 #resultado.correcto, #resultadoFila.correcto { background: var(--ok-green-bg); color: #2f9e63; }
@@ -590,10 +611,14 @@ button:focus-visible {
   color: var(--plum);
   margin: 10px 0 4px;
 }
-#final .emoji-final {
+.emoji-final {
   display: block;
   font-size: 2.6rem;
   margin-bottom: 6px;
+}
+.emoji-final .icono-lucide {
+  width: 1em;
+  height: 1em;
 }
 
 /* ---- resumen de respuestas ---- */
@@ -744,6 +769,21 @@ body.tema-oscuro .tabla-estudio tbody tr:nth-child(even) { background: var(--blu
 @media (min-width: 700px) {
   .tabla-estudio-contenedor {
     max-height: 420px;
+  }
+
+  /* En desktop ya caben las 5 pastillas de modo sin necesidad de deslizar,
+     así que se revierte el carrusel de mobile a una fila normal centrada. */
+  .opciones-modo {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    justify-content: center;
+    padding: 0;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .opcion-modo {
+    flex-shrink: 1;
   }
 
   /* Botones "Jugar de nuevo" / "Volver al menú": en mobile quedan apilados,

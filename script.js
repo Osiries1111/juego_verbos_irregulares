@@ -257,6 +257,8 @@ function aplicarTema(oscuro) {
   document.body.classList.toggle("tema-oscuro", oscuro);
   dom.btnTema.innerHTML = window.icono(oscuro ? "sun" : "moon");
   dom.btnTema.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  const metaColorScheme = document.getElementById("metaColorScheme");
+  if (metaColorScheme) metaColorScheme.setAttribute("content", oscuro ? "dark" : "light");
   try {
     localStorage.setItem("verbosTemaOscuro", oscuro ? "1" : "0");
   } catch (e) {

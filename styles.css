@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --pink-1: #ffe3ef;
   --pink-2: #ffb6d0;
   --pink-3: #ff8fb1;
@@ -687,6 +688,7 @@ button:focus-visible {
    MODO OSCURO — redefine las mismas variables, todo lo demás se hereda solo
    ======================================================================== */
 body.tema-oscuro {
+  color-scheme: dark;
   --pink-1: #402437;
   --pink-2: #6e3a58;
   --pink-3: #ff8fb1;
